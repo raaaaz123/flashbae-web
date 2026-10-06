@@ -1,0 +1,37 @@
+# Every Monday: re-pull the looks catalog from the live API and open a pull request if anything changed.
+# A pull request, not a push: check new looks before they go live, and add any that shouldn't be on the
+# website (celebrity look-alikes, trademarks in the shot) to HIDDEN in lib/looks.ts.
+# Needs Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+name: Refresh looks
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  looks:
+    # fetch-looks resizes images with `sips`, which only macOS has.
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/fetch-looks.mjs
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: looks-refresh
+          delete-branch: true
+          commit-message: Refresh looks from the live catalog
+          title: New looks from the live catalog
+          body: |
+            The weekly refresh found changes in the looks catalog.
+
+            Before merging, check each new look in `lib/looks.json`. Add any that shouldn't be on the
+            website (celebrity look-alikes, trademarks or posters in the shot) to `HIDDEN` in `lib/looks.ts`.
+            Merging deploys the site.

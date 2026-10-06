@@ -84,7 +84,16 @@ function coverScale(tex: THREE.Texture) {
   return ta > plane ? new THREE.Vector2(plane / ta, 1) : new THREE.Vector2(1, ta / plane);
 }
 
-export default function FlashHero({ looks }: { looks: Look[] }) {
+/** The words under the hero, replaced on the Japanese and Korean pages. */
+export type HeroText = { shoot: string; hover: string; tap: string; again: string };
+const HERO_EN: HeroText = {
+  shoot: "Take another shot",
+  hover: "Hover a print to see the photo it started as",
+  tap: "Tap a print to see the photo it started as",
+  again: "New looks, same flash",
+};
+
+export default function FlashHero({ looks, text = HERO_EN }: { looks: Look[]; text?: HeroText }) {
   const mount = useRef<HTMLDivElement>(null);
   const flash = useAnimationControls();
   const shootRef = useRef<() => void>(() => {});
@@ -309,16 +318,16 @@ export default function FlashHero({ looks }: { looks: Look[] }) {
         transition={{ type: "spring", stiffness: 380, damping: 22 }}
       >
         <span className="shutter-dot" aria-hidden="true" />
-        Take another shot
+        {text.shoot}
       </motion.button>
       <p className="hero-hint" aria-live="polite">
         {shot === 0 ? (
           <>
-            <span className="only-mouse">Hover a print to see the photo it started as</span>
-            <span className="only-touch">Tap a print to see the photo it started as</span>
+            <span className="only-mouse">{text.hover}</span>
+            <span className="only-touch">{text.tap}</span>
           </>
         ) : (
-          "New looks, same flash"
+          text.again
         )}
       </p>
       </div>

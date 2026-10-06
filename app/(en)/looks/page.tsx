@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import { LOOKS } from "@/lib/looks";
+import LookPrints from "@/components/LookPrints";
+import { LOOKS, LOOKS_UPDATED, formatDate } from "@/lib/looks";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -25,9 +26,10 @@ export default function LooksPage() {
       <header className="page-head">
         <h1>Every look, before and after</h1>
         <p>
-          Effects restyle the light and colour of your own photo. Templates put you in a new scene.
+          Effects re-shoot your own photo and keep your scene. Templates put you in a new scene.
           Hover a look to see the photo it started from.
         </p>
+        <p className="meta">Updated <time dateTime={LOOKS_UPDATED}>{formatDate(LOOKS_UPDATED)}</time> · {LOOKS.length} looks</p>
       </header>
       {[
         { title: "Effects", items: effects },
@@ -35,19 +37,7 @@ export default function LooksPage() {
       ].map((group) => (
         <section key={group.title} className="section-tight" aria-labelledby={`g-${group.title}`}>
           <h2 id={`g-${group.title}`}>{group.title}</h2>
-          <ul className="gallery gallery-wrap">
-            {group.items.map((l) => (
-              <li key={l.slug}>
-                <a href={`/looks/${l.slug}/`} className="print">
-                  <span className="print-photo">
-                    <img src={l.after} alt={`${l.title} AI look`} loading="lazy" />
-                    <img src={l.before} alt="" loading="lazy" className="print-before" />
-                  </span>
-                  <span className="print-title">{l.title}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <LookPrints looks={group.items} wrap />
         </section>
       ))}
     </div>

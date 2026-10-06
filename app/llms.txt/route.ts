@@ -1,3 +1,5 @@
+import { FILM_GROUPS, FILMS } from "@/lib/films";
+import { GUIDES } from "@/lib/guides";
 import { LOOKS } from "@/lib/looks";
 import { APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
 
@@ -16,6 +18,19 @@ ${NAME} is an iPhone and iPad app (iOS 17+) in ${BOOTH.languages} languages. Dow
 - Booth together: invite a partner or friend with a link or six-letter code; live video and voice while you shoot; both phones count down and flash at the same moment; one shared strip. Live video is never recorded.
 - AI looks: pick a look, add a selfie, and AI re-shoots it (digicam flash, night flash, golden hour, warm film, Y2K, scene templates). Results take about 15 seconds; an intensity slider fades back toward the original; a before/after reveal video can be shared.
 - Free film editor on the device: film filters, adjustments, face retouch, light leaks and frames.
+
+## Pages
+- [Photo booth app for iPhone](${SITE_URL}/photo-booth-app/): how the booth works, layouts, films, saving and printing.
+- [Long-distance photo booth](${SITE_URL}/long-distance-photo-booth/): one strip with someone far away, on live video.
+- [Digicam and Y2K flash filters](${SITE_URL}/digicam-filter/): booth films, AI looks and editor filters for the flash look.
+- [Film looks](${SITE_URL}/films/): all ${BOOTH.films} booth films.
+- In Japanese: ${SITE_URL}/ja/ · In Korean: ${SITE_URL}/ko/
+
+## Guides
+${GUIDES.map((g) => `- [${g.title}](${SITE_URL}/guides/${g.slug}/): ${g.description}`).join("\n")}
+
+## Film looks (photo booth)
+${FILM_GROUPS.map((g) => `### ${g.title}\n${FILMS.filter((f) => f.group === g.id).map((f) => `- ${f.title}${f.free ? " (free)" : ""}: ${f.text}`).join("\n")}`).join("\n\n")}
 
 ## Looks
 ${LOOKS.map((l) => `- [${l.title}](${SITE_URL}/looks/${l.slug}/): ${l.kind}. ${l.tagline}`).join("\n")}

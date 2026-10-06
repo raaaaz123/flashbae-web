@@ -7,8 +7,14 @@ import Sticker from "@/components/Sticker";
 import Ribbon from "@/components/Ribbon";
 import Mascot from "@/components/Mascot";
 import JsonLd from "@/components/JsonLd";
+import LookPrints from "@/components/LookPrints";
 import { HERO_LOOKS, LOOKS, lookBySlug } from "@/lib/looks";
+import type { Metadata } from "next";
 import { APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
+import { GUIDES } from "@/lib/guides";
+import { HOME_ALTERNATES } from "@/lib/i18n";
+
+export const metadata: Metadata = { alternates: { canonical: "/", languages: HOME_ALTERNATES } };
 
 const img = (slug: string, side: "before" | "after") => lookBySlug(slug)?.[side] ?? "";
 
@@ -103,7 +109,10 @@ export default function Home() {
             <li><strong>Make it yours.</strong> {BOOTH.films} films from 1930s booth to CCD cam, frames, stickers, a caption and the date.</li>
             <li><strong>Take it with you.</strong> Save the strip, post it as a Story, or print a sheet.</li>
           </ol>
-          <p className="fine">The booth and {BOOTH.freeFilms} of its films are free, forever.</p>
+          <p className="fine">
+            The booth and {BOOTH.freeFilms} of its films are free, forever.{" "}
+            <a className="text-link" href="/photo-booth-app/">How the booth works</a> · <a className="text-link" href="/films/">See all {BOOTH.films} films</a>
+          </p>
         </div>
       </section>
 
@@ -115,7 +124,8 @@ export default function Home() {
           <h2 id="together-title">Booth together when you&apos;re miles apart</h2>
           <p>
             Send your partner or best friend a link. You see and hear each other live, both phones count down
-            together and flash at the same moment, and you get one strip with both of you in it.
+            together and flash at the same moment, and you get one strip with both of you in it.{" "}
+            <a className="text-link" href="/long-distance-photo-booth/">How the long-distance booth works</a>
           </p>
         </div>
         <Together
@@ -129,18 +139,31 @@ export default function Home() {
           <h2 id="gallery-title">New looks drop every week</h2>
           <a className="text-link" href="/looks/">See all {LOOKS.length} looks</a>
         </div>
-        <ul className="gallery">
-          {LOOKS.slice(0, 10).map((l) => (
-            <li key={l.slug}>
-              <a href={`/looks/${l.slug}/`} className="print">
-                <span className="print-photo">
-                  <img src={l.after} alt={`${l.title} AI look`} loading="lazy" />
-                  <img src={l.before} alt="" loading="lazy" className="print-before" />
-                </span>
-                <span className="print-title">{l.title}</span>
+        <LookPrints looks={LOOKS.slice(0, 10)} />
+      </section>
+
+      <section className="section" aria-labelledby="guides-title">
+        <div className="section-head section-head-row">
+          <h2 id="guides-title">Tips from the booth</h2>
+          <a className="text-link" href="/guides/">All guides</a>
+        </div>
+        <ul className="cards">
+          {GUIDES.map((g) => (
+            <li key={g.slug}>
+              <a className="card" href={`/guides/${g.slug}/`}>
+                <h3>{g.title}</h3>
+                <p>{g.description}</p>
+                <span className="card-more">Read the guide</span>
               </a>
             </li>
           ))}
+          <li>
+            <a className="card" href="/digicam-filter/">
+              <h3>Digicam, disposable and Y2K flash filters</h3>
+              <p>Three ways to get the 2000s point-and-shoot flash on iPhone: booth films, AI looks and the film editor.</p>
+              <span className="card-more">See the flash looks</span>
+            </a>
+          </li>
         </ul>
       </section>
 

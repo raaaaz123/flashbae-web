@@ -13,7 +13,7 @@ const BURST = [
 ];
 
 /** The camera mascot: idles with a little bounce; press it and it takes your picture. */
-export default function Mascot({ size = 170 }: { size?: number }) {
+export default function Mascot({ size = 170, label = "Take a photo with the Flashbae camera" }: { size?: number; label?: string }) {
   const reduce = useReducedMotion();
   const body = useAnimationControls();
   const [shots, setShots] = useState(0);
@@ -42,7 +42,7 @@ export default function Mascot({ size = 170 }: { size?: number }) {
         )}
       </AnimatePresence>
       <motion.button type="button" className="mascot-btn" onClick={snap} animate={body} whileHover={reduce ? {} : { rotate: -4, y: -4 }}
-                     whileTap={{ scale: 0.94 }} aria-label="Take a photo with the Flashbae camera">
+                     whileTap={{ scale: 0.94 }} aria-label={label}>
         <img src="/mascot.png" alt="" width={size} height={Math.round(size * 0.88)} className="mascot-img" />
         <AnimatePresence>
           {shots > 0 && !reduce && (

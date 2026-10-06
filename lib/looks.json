@@ -9,7 +9,8 @@
     "trending": true,
     "people": 1,
     "before": "/looks/dreamlight-before.jpg",
-    "after": "/looks/dreamlight-after.jpg"
+    "after": "/looks/dreamlight-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "motion-rush",
@@ -21,7 +22,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/motion-rush-before.jpg",
-    "after": "/looks/motion-rush-after.jpg"
+    "after": "/looks/motion-rush-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "red-after-dark",
@@ -33,7 +35,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/red-after-dark-before.jpg",
-    "after": "/looks/red-after-dark-after.jpg"
+    "after": "/looks/red-after-dark-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "sun-kissed",
@@ -45,7 +48,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/sun-kissed-before.jpg",
-    "after": "/looks/sun-kissed-after.jpg"
+    "after": "/looks/sun-kissed-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "adds-warm-cinematic-tones-and-soft-motio",
@@ -57,7 +61,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/adds-warm-cinematic-tones-and-soft-motio-before.jpg",
-    "after": "/looks/adds-warm-cinematic-tones-and-soft-motio-after.jpg"
+    "after": "/looks/adds-warm-cinematic-tones-and-soft-motio-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "retake",
@@ -69,7 +74,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/retake-before.jpg",
-    "after": "/looks/retake-after.jpg"
+    "after": "/looks/retake-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "clear-scene",
@@ -81,7 +87,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/clear-scene-before.jpg",
-    "after": "/looks/clear-scene-after.jpg"
+    "after": "/looks/clear-scene-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "disposable-flash",
@@ -93,7 +100,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/disposable-flash-before.jpg",
-    "after": "/looks/disposable-flash-after.jpg"
+    "after": "/looks/disposable-flash-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "face-roll",
@@ -105,7 +113,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/face-roll-before.jpg",
-    "after": "/looks/face-roll-after.jpg"
+    "after": "/looks/face-roll-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "y2k-flash",
@@ -117,7 +126,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/y2k-flash-before.jpg",
-    "after": "/looks/y2k-flash-after.jpg"
+    "after": "/looks/y2k-flash-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "soft-flash",
@@ -129,7 +139,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/soft-flash-before.jpg",
-    "after": "/looks/soft-flash-after.jpg"
+    "after": "/looks/soft-flash-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "cozy-flash",
@@ -141,7 +152,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/cozy-flash-before.jpg",
-    "after": "/looks/cozy-flash-after.jpg"
+    "after": "/looks/cozy-flash-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "cover-girl",
@@ -153,7 +165,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/cover-girl-before.jpg",
-    "after": "/looks/cover-girl-after.jpg"
+    "after": "/looks/cover-girl-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "subway-motion",
@@ -165,7 +178,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/subway-motion-before.jpg",
-    "after": "/looks/subway-motion-after.jpg"
+    "after": "/looks/subway-motion-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "midnight-flash",
@@ -177,7 +191,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/midnight-flash-before.jpg",
-    "after": "/looks/midnight-flash-after.jpg"
+    "after": "/looks/midnight-flash-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "subway-still",
@@ -189,7 +204,8 @@
     "trending": false,
     "people": 1,
     "before": "/looks/subway-still-before.jpg",
-    "after": "/looks/subway-still-after.jpg"
+    "after": "/looks/subway-still-after.jpg",
+    "added": "2026-10-05"
   },
   {
     "id": "neon-collage",
@@ -201,6 +217,7 @@
     "trending": false,
     "people": 1,
     "before": "/looks/neon-collage-before.jpg",
-    "after": "/looks/neon-collage-after.jpg"
+    "after": "/looks/neon-collage-after.jpg",
+    "added": "2026-10-05"
   }
 ]
