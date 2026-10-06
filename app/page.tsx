@@ -8,7 +8,7 @@ import Ribbon from "@/components/Ribbon";
 import Mascot from "@/components/Mascot";
 import JsonLd from "@/components/JsonLd";
 import { HERO_LOOKS, LOOKS, lookBySlug } from "@/lib/looks";
-import { APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, PACKS, PLANS, SITE_URL, STORE_NAME } from "@/lib/site";
+import { APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
 
 const img = (slug: string, side: "before" | "after") => lookBySlug(slug)?.[side] ?? "";
 
@@ -37,16 +37,7 @@ export default function Home() {
               inLanguage: ["en", "ja", "de", "fr", "ko", "es", "pt-BR", "it", "zh-Hant", "zh-Hans", "nl", "ar", "tr", "id"],
               downloadUrl: APP_STORE_URL,
               image: `${SITE_URL}/og.jpg`,
-              offers: [
-                { "@type": "Offer", name: "Free download", price: "0", priceCurrency: "USD" },
-                ...PLANS.map((p) => ({
-                  "@type": "Offer",
-                  name: `${p.name} — ${p.perDay} AI photos a day`,
-                  price: p.price.toFixed(2),
-                  priceCurrency: "USD",
-                  priceSpecification: { "@type": "UnitPriceSpecification", price: p.price.toFixed(2), priceCurrency: "USD", billingDuration: "P1W" },
-                })),
-              ],
+              offers: { "@type": "Offer", name: "Free download", price: "0", priceCurrency: "USD" },
               featureList: [
                 `Photo booth strips in ${BOOTH.layouts} layouts with a 3-2-1 countdown and pose prompts`,
                 `${BOOTH.films} film looks, ${BOOTH.freeFilms} free`,
@@ -154,43 +145,6 @@ export default function Home() {
       </section>
 
       <Ribbon tone="butter" tilt={2} />
-
-      <section className="section" id="pricing" aria-labelledby="pricing-title">
-        <div className="section-head">
-          <h2 id="pricing-title">Free to shoot, pay for the magic</h2>
-          <p>The booth, its free films and the film editor cost nothing. AI looks come with a plan that refills every day.</p>
-        </div>
-        <div className="plans">
-          <div className="plan plan-free">
-            <h3>Free</h3>
-            <p className="price">$0</p>
-            <ul>
-              <li>Photo booth in every layout</li>
-              <li>{BOOTH.freeFilms} film looks</li>
-              <li>Film editor with face retouch</li>
-              <li>Booth with a friend</li>
-            </ul>
-          </div>
-          {PLANS.map((p) => (
-            <div key={p.id} className={`plan plan-${p.id}`}>
-              {p.id === "gold" && <Sticker kind="crown" size={54} className="st-crown" spin={14} />}
-              {p.id === "plus" && <Sticker kind="heart" size={40} className="st-crown" delay={0.8} spin={10} />}
-              <h3>{p.name}</h3>
-              <p className="price">${p.price}<span>/week</span></p>
-              <ul>
-                <li>{p.perDay} AI photos every day</li>
-                <li>Every film, theme and sticker</li>
-                <li>Strips without the logo</li>
-                {p.id === "gold" && <li>Premium looks</li>}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <p className="fine plans-fine">
-          Need more on a busy day? {PACKS.map((p) => `${p.credits} extra photos for $${p.price}`).join(" or ")}, one-time, never expire.
-          Plans renew weekly until you cancel in your Apple ID settings. <a href={LEGAL.terms}>Terms</a>
-        </p>
-      </section>
 
       <section className="section section-faq" id="faq" aria-labelledby="faq-title">
         <div className="section-head">

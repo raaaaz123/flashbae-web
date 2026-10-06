@@ -27,22 +27,12 @@ export const LEGAL = {
   support: "https://vocavoy.dietly.life/flashbie/support",
 };
 
-export const PLANS = [
-  { id: "plus", name: "Plus", price: 6.99, perDay: 5 },
-  { id: "gold", name: "Gold", price: 9.99, perDay: 10 },
-] as const;
-
-export const PACKS = [
-  { credits: 20, price: 4.99 },
-  { credits: 60, price: 9.99 },
-] as const;
-
 export const BOOTH = { layouts: 4, films: 33, freeFilms: 11, languages: 14 };
 
 export const FAQ: { q: string; a: string }[] = [
   {
     q: "Is Flashbae free?",
-    a: `Yes. The photo booth, ${BOOTH.freeFilms} of its ${BOOTH.films} films and the film editor are free. AI looks and Pro booth items come with Plus ($${PLANS[0].price}/week, ${PLANS[0].perDay} AI photos a day) or Gold ($${PLANS[1].price}/week, ${PLANS[1].perDay} a day). Credit packs top up a plan and never expire.`,
+    a: `Yes. The photo booth, ${BOOTH.freeFilms} of its ${BOOTH.films} films and the film editor are free. AI looks and the Pro booth extras come with a subscription in the app.`,
   },
   {
     q: "What does an AI look do to my photo?",
@@ -66,6 +56,6 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Can I remove the Flashbae logo from my strips?",
-    a: "Yes. Anyone on Plus or Gold gets clean strips and shared photos without the logo.",
+    a: "Yes. Subscribers get clean strips and shared photos without the logo.",
   },
 ];

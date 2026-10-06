@@ -14,6 +14,6 @@ Build-time settings:
 - `NEXT_PUBLIC_SITE_URL` — the real domain (default https://flashbae.app); used for canonical URLs, the sitemap and structured data.
 - `NEXT_PUBLIC_APP_STORE_ID` — once the app is live: download buttons go straight to the App Store and Safari shows the smart app banner.
 
-Content lives in `lib/site.ts` (copy, prices, FAQ) and `lib/looks.ts` (which looks are shown; `HIDDEN` keeps
-celebrity look-alikes and trademarked/poster shots off the site). The FAQ, prices and looks feed the page, the JSON-LD
+Content lives in `lib/site.ts` (copy, FAQ) and `lib/looks.ts` (which looks are shown; `HIDDEN` keeps
+celebrity look-alikes and trademarked/poster shots off the site). The FAQ and looks feed the page, the JSON-LD
 and `/llms.txt` from one source.

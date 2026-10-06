@@ -11,7 +11,6 @@ export default function Header() {
       <nav aria-label="Main" className="nav">
         <a href="/looks/">Looks</a>
         <a href="/#booth">Photo booth</a>
-        <a href="/#pricing">Pricing</a>
         <a href="/#faq">FAQ</a>
       </nav>
       <AppStoreButton href={APP_STORE_URL} small />
