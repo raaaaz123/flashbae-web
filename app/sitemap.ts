@@ -11,6 +11,8 @@ const homeLanguages = Object.fromEntries(Object.entries(HOME_ALTERNATES).map(([k
 
 /** Feature pages, newest first. Bump a date when its page changes meaningfully. */
 const PAGES = [
+  { path: "/online-photo-booth/", updated: "2026-10-06", priority: 0.9 },
+  { path: "/photo-strip-maker/", updated: "2026-10-06", priority: 0.9 },
   { path: "/photo-booth-app/", updated: "2026-10-06", priority: 0.9 },
   { path: "/long-distance-photo-booth/", updated: "2026-10-06", priority: 0.9 },
   { path: "/digicam-filter/", updated: "2026-10-06", priority: 0.8 },

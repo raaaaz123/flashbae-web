@@ -19,6 +19,10 @@ ${NAME} is an iPhone and iPad app (iOS 17+) in ${BOOTH.languages} languages. Dow
 - AI looks: pick a look, add a selfie, and AI re-shoots it (digicam flash, night flash, golden hour, warm film, Y2K, scene templates). Results take about 15 seconds; an intensity slider fades back toward the original; a before/after reveal video can be shared.
 - Free film editor on the device: film filters, adjustments, face retouch, light leaks and frames.
 
+## Free web tools
+- [Online photo booth](${SITE_URL}/online-photo-booth/): free, in the browser, with the webcam or phone camera; pose prompts, a 3-2-1 countdown and screen flash; download a photo strip. Nothing is uploaded.
+- [Photo strip maker](${SITE_URL}/photo-strip-maker/): free; turn 3 or 4 of your photos into a booth strip with a film, frame colour, caption and date. Nothing is uploaded.
+
 ## Pages
 - [Photo booth app for iPhone](${SITE_URL}/photo-booth-app/): how the booth works, layouts, films, saving and printing.
 - [Long-distance photo booth](${SITE_URL}/long-distance-photo-booth/): one strip with someone far away, on live video.

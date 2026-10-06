@@ -5,6 +5,8 @@ import { LOOKS } from "@/lib/looks";
 
 /** The pages every English page links to, so crawlers reach them from anywhere on the site. */
 export const EXPLORE = [
+  { href: "/online-photo-booth/", label: "Free online photo booth" },
+  { href: "/photo-strip-maker/", label: "Free photo strip maker" },
   { href: "/photo-booth-app/", label: "Photo booth app" },
   { href: "/long-distance-photo-booth/", label: "Long-distance photo booth" },
   { href: "/digicam-filter/", label: "Digicam & Y2K flash" },

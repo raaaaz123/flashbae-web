@@ -74,7 +74,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <AppStoreButton href={APP_STORE_URL} />
-            <p className="fine">Free on iPhone and iPad</p>
+            <p className="fine">Free on iPhone and iPad · <a className="text-link" href="/online-photo-booth/">or try the booth online</a></p>
           </div>
         </div>
         <FlashHero looks={HERO_LOOKS.concat(LOOKS.filter((l) => !HERO_LOOKS.includes(l) && l.kind === "template"))} />

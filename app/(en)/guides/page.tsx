@@ -17,6 +17,8 @@ export const metadata: Metadata = {
 
 /** The guides, plus the feature pages, which answer the same kinds of questions. */
 const FEATURES = [
+  { href: "/online-photo-booth/", title: "Free online photo booth", text: "Take a strip with your webcam or phone camera, right in the browser." },
+  { href: "/photo-strip-maker/", title: "Free photo strip maker", text: "Turn photos you already have into a booth strip." },
   { href: "/long-distance-photo-booth/", title: "Long-distance photo booth", text: "Shoot one strip together on live video, both phones flashing at once." },
   { href: "/digicam-filter/", title: "Digicam and Y2K flash filters", text: "Three ways to get the 2000s point-and-shoot look on iPhone." },
   { href: "/films/", title: "All the film looks", text: "Every booth film, from 1930s booth to cinema film, and which are free." },
