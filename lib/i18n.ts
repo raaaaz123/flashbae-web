@@ -27,7 +27,7 @@ export const CHROME: Record<Locale, Chrome> = {
     nav: [
       { href: "/looks/", label: "Looks" },
       { href: "/photo-booth-app/", label: "Photo booth" },
-      { href: "/online-photo-booth/", label: "Try it online" },
+      { href: "/free-tools/", label: "Free tools" },
       { href: "/films/", label: "Films" },
       { href: "/guides/", label: "Guides" },
     ],

@@ -71,7 +71,7 @@ export default function OnlinePhotoBooth() {
           ],
         }}
       />
-      <Crumbs trail={[{ name: "Online photo booth", path: PATH }]} />
+      <Crumbs trail={[{ name: "Free tools", path: "/free-tools/" }, { name: "Online photo booth", path: PATH }]} />
       <header className="article-head">
         <h1>Free online photo booth</h1>
         <p className="lede">

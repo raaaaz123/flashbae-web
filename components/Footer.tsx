@@ -2,11 +2,10 @@ import type { Locale } from "@/lib/i18n";
 import { CHROME, LOCALES } from "@/lib/i18n";
 import { LEGAL } from "@/lib/site";
 import { LOOKS } from "@/lib/looks";
+import { TOOLS } from "@/lib/tools";
 
 /** The pages every English page links to, so crawlers reach them from anywhere on the site. */
 export const EXPLORE = [
-  { href: "/online-photo-booth/", label: "Free online photo booth" },
-  { href: "/photo-strip-maker/", label: "Free photo strip maker" },
   { href: "/photo-booth-app/", label: "Photo booth app" },
   { href: "/long-distance-photo-booth/", label: "Long-distance photo booth" },
   { href: "/digicam-filter/", label: "Digicam & Y2K flash" },
@@ -19,7 +18,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
   const t = CHROME[locale];
   const en = locale === "en";
   const home = LOCALES.find((l) => l.id === locale)!.home;
-  const cols = en ? 4 : 2;
+  const cols = en ? 5 : 2;
   return (
     <footer className="footer" style={{ "--cols": cols } as React.CSSProperties}>
       <div className="footer-brand">
@@ -34,6 +33,12 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
         <nav aria-label={t.footer.explore} className="footer-col">
           <h2>{t.footer.explore}</h2>
           {EXPLORE.map((e) => <a key={e.href} href={e.href}>{e.label}</a>)}
+        </nav>
+      )}
+      {en && (
+        <nav aria-label="Free tools" className="footer-col">
+          <h2>Free tools</h2>
+          {TOOLS.map((t) => <a key={t.href} href={t.href}>{t.title}</a>)}
         </nav>
       )}
       {en && (

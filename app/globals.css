@@ -593,3 +593,41 @@ a.card:hover, a.card:focus-visible { transform: translateY(-4px) rotate(-0.4deg)
 @media (prefers-reduced-motion: reduce) {
   .cam-count, .thumb img, .pitch-saved { animation: none; }
 }
+
+/* Date stamp tool. */
+.drop-big { padding: clamp(36px, 8vw, 72px) 20px; gap: 16px; }
+.stamp-demo { font: 700 clamp(2rem, 7vw, 3.2rem)/1 ui-monospace, "SF Mono", Menlo, monospace; color: #FFB04A; font-style: italic;
+  letter-spacing: 0.08em; text-shadow: 0 0 6px #FF6A00, 0 0 18px rgba(255, 106, 0, 0.7); background: var(--cocoa); border-radius: 16px; padding: 14px 22px; }
+.studio-photo { position: relative; width: 100%; max-width: 560px; filter: drop-shadow(0 22px 30px rgba(150, 40, 70, 0.28)); }
+.studio-photo .studio-canvas { border-radius: 10px; }
+.stamp-row { display: flex; flex-wrap: wrap; gap: 22px 36px; }
+.range { width: 100%; accent-color: var(--cherry); height: 32px; }
+.swatch-glow[aria-checked="true"] { box-shadow: 0 0 0 3px var(--milk), 0 0 0 5px var(--cherry), 0 0 18px currentColor; }
+.pitch-looks { grid-column: 1 / -1; display: grid; gap: 10px; }
+.pitch-looks .gallery { padding-bottom: 8px; }
+
+/* Template maker. */
+.template-paper { position: relative; width: 100%; max-width: 200px; filter: drop-shadow(0 22px 30px rgba(150, 40, 70, 0.28)); }
+.template-paper-wide { max-width: 360px; }
+.template-clear { background: repeating-conic-gradient(#e7e1e3 0% 25%, #fff 0% 50%) 0 0 / 18px 18px; }
+.template-size { text-align: center; margin-top: 14px; }
+.template-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.template-opt { display: grid; gap: 2px; text-align: left; padding: 12px 14px; border-radius: 16px; border: 1.5px solid var(--line); background: #fff;
+  color: var(--cocoa); font: 500 0.92rem var(--body); cursor: pointer; }
+.template-opt strong { font-size: 1rem; }
+.template-opt span { color: var(--cocoa-soft); }
+.template-note { font-size: 0.82rem; }
+.template-opt[aria-checked="true"] { border-color: var(--cherry); box-shadow: 0 0 0 2px var(--cherry) inset; }
+@media (max-width: 860px) {
+  .template-paper { max-width: min(170px, 46vw); }
+  .template-paper-wide { max-width: min(320px, 80vw); }
+  .studio-photo { max-width: 100%; }
+}
+
+.print-only { display: none; }
+@media print {
+  body > *:not(main), main > *:not(.article), .article > *:not(.tool), .tool > *:not(.print-only) { display: none !important; }
+  body, main, .article, .tool { margin: 0 !important; padding: 0 !important; background: none !important; box-shadow: none !important; }
+  .print-only { display: block !important; }
+  .print-only img { display: block; }
+}

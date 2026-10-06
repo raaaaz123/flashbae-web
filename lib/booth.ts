@@ -369,10 +369,10 @@ export function drawStrip(out: HTMLCanvasElement, cells: (HTMLCanvasElement | nu
   ctx.fillText("flashbae", f.x + f.w - 20, f.y + f.h - 24);
 }
 
-/** Load a file (or a camera frame) as a bitmap, upright and no bigger than the strip needs. */
-export async function loadPhoto(file: Blob): Promise<Source> {
+/** Load a file (or a camera frame) as a bitmap, upright and no bigger than `max` on its long side. */
+export async function loadPhoto(file: Blob, max = 1600): Promise<Source> {
   const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
-  const max = 1600, k = Math.min(1, max / Math.max(bmp.width, bmp.height));
+  const k = Math.min(1, max / Math.max(bmp.width, bmp.height));
   if (k === 1) return bmp;
   const c = canvas(Math.round(bmp.width * k), Math.round(bmp.height * k));
   c.getContext("2d")!.drawImage(bmp, 0, 0, c.width, c.height);
@@ -384,5 +384,114 @@ export async function loadPhoto(file: Blob): Promise<Source> {
 export function pageFonts() {
   const css = getComputedStyle(document.documentElement);
   const display = css.getPropertyValue("--font-display").trim() || "Georgia, serif";
-  return { display, mono: "ui-monospace, 'SF Mono', Menlo, monospace" };
+  const body = css.getPropertyValue("--font-body").trim() || "-apple-system, sans-serif";
+  return { display, body, mono: "ui-monospace, 'SF Mono', Menlo, monospace" };
+}
+
+// ---------- the date stamp: orange seven-segment digits, like a 2000s camera ----------
+
+export type StampFormat = "ymd" | "mdy" | "dmy";
+export type StampColor = "orange" | "yellow" | "red";
+export type StampCorner = "right" | "left";
+
+const STAMP_COLORS: Record<StampColor, { core: string; glow: string }> = {
+  orange: { core: "#FFB04A", glow: "#FF6A00" },
+  yellow: { core: "#FFE68A", glow: "#FFB300" },
+  red: { core: "#FF7A5C", glow: "#FF1E00" },
+};
+
+/** The text a camera would print: '26 10 6, with the year marked by an apostrophe. */
+export function stampText(d: Date, f: StampFormat) {
+  const y = `'${String(d.getFullYear() % 100).padStart(2, "0")}`, m = String(d.getMonth() + 1), day = String(d.getDate());
+  return f === "ymd" ? `${y} ${m} ${day}` : f === "mdy" ? `${m} ${day} ${y}` : `${day} ${m} ${y}`;
+}
+
+// Segments: a top, b upper right, c lower right, d bottom, e lower left, f upper left, g middle.
+const DIGITS: Record<string, string> = {
+  "0": "abcdef", "1": "bc", "2": "abged", "3": "abgcd", "4": "fgbc", "5": "afgcd", "6": "afgedc", "7": "abc", "8": "abcdefg", "9": "abcdfg",
+};
+
+function segments(ctx: CanvasRenderingContext2D, ch: string, x: number, h: number) {
+  const w = h * 0.52, t = h * 0.11, m = h / 2;
+  const lines: Record<string, [number, number, number, number]> = {
+    a: [t, 0, w - t, 0], b: [w, t, w, m - t], c: [w, m + t, w, h - t], d: [t, h, w - t, h],
+    e: [0, m + t, 0, h - t], f: [0, t, 0, m - t], g: [t, m, w - t, m],
+  };
+  for (const seg of DIGITS[ch] ?? "") {
+    const [x0, y0, x1, y1] = lines[seg];
+    ctx.moveTo(x + x0, y0); ctx.lineTo(x + x1, y1);
+  }
+  return w;
+}
+
+/** Draw the stamp on a photo; `size` is the digit height as a share of the photo's short side. */
+export function drawDateStamp(ctx: CanvasRenderingContext2D, w: number, h: number,
+                              o: { text: string; color: StampColor; corner: StampCorner; size: number }) {
+  const dh = Math.max(12, Math.min(w, h) * o.size);
+  const gap = dh * 0.32, space = dh * 0.45, tick = dh * 0.22;
+  // Measure first, so the stamp can sit in either corner.
+  let width = 0;
+  for (const ch of o.text) width += ch === " " ? space : ch === "'" ? tick + gap * 0.5 : dh * 0.52 + gap;
+  const margin = Math.min(w, h) * 0.05;
+  const x0 = o.corner === "right" ? w - margin - width : margin, y0 = h - margin - dh;
+  const c = STAMP_COLORS[o.color];
+  ctx.save();
+  ctx.translate(x0, y0);
+  ctx.transform(1, 0, -0.1, 1, dh * 0.1, 0); // the slight lean of LED digits
+  ctx.lineCap = "round";
+  ctx.lineWidth = dh * 0.11;
+  ctx.beginPath();
+  let x = 0;
+  for (const ch of o.text) {
+    if (ch === " ") { x += space; continue; }
+    if (ch === "'") { ctx.moveTo(x + tick * 0.6, 0); ctx.lineTo(x + tick * 0.3, dh * 0.22); x += tick + gap * 0.5; continue; }
+    x += segments(ctx, ch, x, dh) + gap;
+  }
+  // Two passes: a wide soft glow, then the bright core.
+  ctx.globalCompositeOperation = "screen";
+  ctx.strokeStyle = c.glow;
+  ctx.shadowColor = c.glow;
+  ctx.shadowBlur = dh * 0.5;
+  ctx.globalAlpha = 0.85;
+  ctx.stroke();
+  // The core is drawn normally, so the digits stay readable on bright skies and skin.
+  ctx.globalCompositeOperation = "source-over";
+  ctx.shadowBlur = dh * 0.15;
+  ctx.strokeStyle = c.core;
+  ctx.globalAlpha = 1;
+  ctx.stroke();
+  ctx.restore();
+}
+
+/** When a JPEG was taken, from its EXIF data (DateTimeOriginal, else DateTime). Null if it has none. */
+export async function photoDate(file: Blob): Promise<Date | null> {
+  try {
+    const v = new DataView(await file.slice(0, 256 * 1024).arrayBuffer());
+    if (v.getUint16(0) !== 0xffd8) return null;
+    let p = 2;
+    while (p + 4 < v.byteLength) {
+      const marker = v.getUint16(p), len = v.getUint16(p + 2);
+      if (marker === 0xffe1 && v.getUint32(p + 4) === 0x45786966) {
+        const tiff = p + 10, le = v.getUint16(tiff) === 0x4949;
+        const u16 = (o: number) => v.getUint16(tiff + o, le), u32 = (o: number) => v.getUint32(tiff + o, le);
+        const read = (ifd: number, tag: number) => {
+          const n = u16(ifd);
+          for (let i = 0; i < n; i++) {
+            const e = ifd + 2 + i * 12;
+            if (u16(e) === tag) return u32(e + 8);
+          }
+          return null;
+        };
+        const str = (o: number) => String.fromCharCode(...Array.from({ length: 19 }, (_, i) => v.getUint8(tiff + o + i)));
+        const ifd0 = u32(4), exif = read(ifd0, 0x8769);
+        const at = (exif !== null ? read(exif, 0x9003) : null) ?? read(ifd0, 0x0132);
+        if (at === null) return null;
+        const m = /^(\d{4}):(\d{2}):(\d{2})/.exec(str(at));
+        return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+      }
+      if ((marker & 0xff00) !== 0xff00) return null;
+      p += 2 + len;
+    }
+  } catch { /* not a JPEG we can read */ }
+  return null;
 }

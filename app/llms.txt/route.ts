@@ -22,6 +22,8 @@ ${NAME} is an iPhone and iPad app (iOS 17+) in ${BOOTH.languages} languages. Dow
 ## Free web tools
 - [Online photo booth](${SITE_URL}/online-photo-booth/): free, in the browser, with the webcam or phone camera; pose prompts, a 3-2-1 countdown and screen flash; download a photo strip. Nothing is uploaded.
 - [Photo strip maker](${SITE_URL}/photo-strip-maker/): free; turn 3 or 4 of your photos into a booth strip with a film, frame colour, caption and date. Nothing is uploaded.
+- [Date stamp and digicam filter](${SITE_URL}/date-stamp-photo/): free; add the orange date stamp of a 2000s camera to a photo (using the date it was taken), with a CCD or flash colour grade. Nothing is uploaded.
+- [Printable photo strip templates](${SITE_URL}/photo-strip-templates/): free 2×6 strips and 4×6 print sheets at 300 dpi with custom text, or a transparent overlay for photo booth software.
 
 ## Pages
 - [Photo booth app for iPhone](${SITE_URL}/photo-booth-app/): how the booth works, layouts, films, saving and printing.

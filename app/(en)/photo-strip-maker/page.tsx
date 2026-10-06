@@ -69,7 +69,7 @@ export default function PhotoStripMaker() {
           ],
         }}
       />
-      <Crumbs trail={[{ name: "Photo strip maker", path: PATH }]} />
+      <Crumbs trail={[{ name: "Free tools", path: "/free-tools/" }, { name: "Photo strip maker", path: PATH }]} />
       <header className="article-head">
         <h1>Free photo strip maker</h1>
         <p className="lede">
