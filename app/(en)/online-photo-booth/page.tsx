@@ -97,7 +97,7 @@ export default function OnlinePhotoBooth() {
           <ul>
             <li>Face a window or a lamp; the screen flash adds sparkle, soft light does the flattering.</li>
             <li>Prop the phone or laptop at eye level and step back so you all fit.</li>
-            <li>Change it up each frame. Stuck? Try these <a href="/guides/photo-booth-pose-ideas/">photo booth pose ideas</a>.</li>
+            <li>Change it up each frame. Stuck? Spin the <a href="/photo-booth-poses/">pose generator</a> or read these <a href="/guides/photo-booth-pose-ideas/">photo booth pose ideas</a>.</li>
           </ul>
           <p>Already have the photos? Use the <a href="/photo-strip-maker/">photo strip maker</a> instead.</p>
         </div>

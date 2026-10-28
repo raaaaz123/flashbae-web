@@ -154,7 +154,7 @@ export const GUIDES: Guide[] = [
     description:
       "Photo booth pose ideas that make a strip tell a story: the twelve prompts the Flashbae booth uses, plus ideas for couples, friends, long-distance strips and posing alone.",
     published: "2026-10-06",
-    updated: "2026-10-06",
+    updated: "2026-10-28",
     faq: [
       { q: "What are good photo booth poses?",
         a: "Mix them up across the strip: a calm smile, a big laugh, something silly like a surprised face or a wink, then a serious model pose. The change between frames is what makes a strip fun." },
@@ -204,7 +204,11 @@ export const GUIDES: Guide[] = [
           <li>Use props: sunglasses on, sunglasses off.</li>
           <li>A slow turn: front, three-quarter, profile, over the shoulder.</li>
         </ul>
-        <p>Ready to shoot? Here&apos;s <a href="/guides/photo-strip-on-iphone/">how to make a photo strip on iPhone</a>.</p>
+        <p>
+          Stuck for ideas? Spin the <a href="/photo-booth-poses/">photo booth pose generator</a> for a random pose, or play a
+          four-frame round with a countdown. Ready to shoot? Here&apos;s{" "}
+          <a href="/guides/photo-strip-on-iphone/">how to make a photo strip on iPhone</a>.
+        </p>
       </>
     ),
   },

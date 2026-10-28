@@ -1,8 +1,11 @@
 // Everything the site says about the app in one place, so the pages, the structured data
 // and llms.txt never disagree.
 
-/** Set NEXT_PUBLIC_SITE_URL to the real domain at build time (e.g. https://flashbae.app). */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://flashbae.app").replace(/\/$/, "");
+/**
+ * The domain the site is served from. flashbae.com redirects to www, so www is canonical: every canonical URL, the
+ * sitemap and the structured data must name the host that answers with a 200, or Google won't index the pages.
+ */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.flashbae.com").replace(/\/$/, "");
 
 /** The numeric App Store id once the app is live; until then the download link redirects through the API. */
 export const APP_STORE_ID = process.env.NEXT_PUBLIC_APP_STORE_ID ?? "";
@@ -12,6 +15,8 @@ export const APP_STORE_URL = APP_STORE_ID
 
 export const NAME = "Flashbae";
 export const STORE_NAME = "Flashbae: AI Photo Booth";
+/** How people type the name into search; listed as alternate names in the structured data. */
+export const ALT_NAMES = ["Flash Bae", "Flashbie", "Flashbae app"];
 export const TAGLINE = "AI photo booth & vintage film camera for iPhone";
 export const DESCRIPTION =
   "Flashbae is an AI photo booth for iPhone. Shoot four-frame photo strips with 33 film looks, booth together with a friend over live video, " +

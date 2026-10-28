@@ -11,7 +11,7 @@ npm run build      # static HTML in out/ — upload that folder to any static ho
 ```
 
 Build-time settings:
-- `NEXT_PUBLIC_SITE_URL` — the real domain (default https://flashbae.app); used for canonical URLs, the sitemap and structured data.
+- `NEXT_PUBLIC_SITE_URL` — the real domain (default https://www.flashbae.com — flashbae.com redirects there); used for canonical URLs, the sitemap and structured data.
 - `NEXT_PUBLIC_APP_STORE_ID` — once the app is live: download buttons go straight to the App Store and Safari shows the smart app banner.
 
 Content lives in `lib/site.ts` (copy, FAQ), `lib/looks.ts` (which looks are shown; `HIDDEN` keeps
@@ -33,6 +33,6 @@ Settings → Actions → General → "Allow GitHub Actions to create and approve
 Generating an AI photo needs a Google sign-in; new accounts get 5 free credits, once.
 
 1. Google Cloud console → APIs & Services → Credentials → Create OAuth client ID → **Web application**.
-2. Authorized JavaScript origins: `https://flashbae.app` and `http://localhost:3100` (plus `http://localhost` for local testing). No redirect URI is needed.
+2. Authorized JavaScript origins: `https://www.flashbae.com` and `http://localhost:3100` (plus `http://localhost` for local testing). No redirect URI is needed.
 3. Website: set `NEXT_PUBLIC_GOOGLE_CLIENT_ID=<client id>` (Vercel env and `.env.local`).
 4. Backend (`langify_backend`): set `FLASHBIE_GOOGLE_CLIENT_IDS=<client id>`. Credits: `FLASHBIE_WEB_SIGNUP_CREDITS` (default 5, one-time) and `FLASHBIE_WEB_DAILY_CREDITS` (default 0).

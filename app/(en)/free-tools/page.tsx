@@ -7,10 +7,11 @@ import { TOOLS } from "@/lib/tools";
 
 const PATH = "/free-tools/";
 const DESCRIPTION =
-  "Free photo booth tools that run in your browser: an online photo booth, a photo strip maker, a digicam date stamp and printable strip templates. No sign-up; nothing is uploaded.";
+  "Free photo booth tools and games that run in your browser: an online photo booth, a photo strip maker, a digicam date stamp, " +
+  "a pose generator, an aesthetic quiz and printable strip templates. No sign-up; nothing is uploaded.";
 
 export const metadata: Metadata = {
-  title: "Free photo booth tools",
+  title: "Free photo booth tools and games",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { title: `Free photo booth tools · ${NAME}`, description: DESCRIPTION, url: PATH },

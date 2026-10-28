@@ -23,6 +23,9 @@ ${NAME} is an iPhone and iPad app (iOS 17+) in ${BOOTH.languages} languages. Dow
 - [Online photo booth](${SITE_URL}/online-photo-booth/): free, in the browser, with the webcam or phone camera; pose prompts, a 3-2-1 countdown and screen flash; download a photo strip. Nothing is uploaded.
 - [Photo strip maker](${SITE_URL}/photo-strip-maker/): free; turn 3 or 4 of your photos into a booth strip with a film, frame colour, caption and date. Nothing is uploaded.
 - [Date stamp and digicam filter](${SITE_URL}/date-stamp-photo/): free; add the orange date stamp of a 2000s camera to a photo (using the date it was taken), with a CCD or flash colour grade. Nothing is uploaded.
+- [Photo booth pose generator](${SITE_URL}/photo-booth-poses/): free game; a random pose or a four-frame round with a 3-2-1 countdown, with pose ideas for solo, couples and groups.
+- [What's your photo aesthetic? Quiz](${SITE_URL}/aesthetic-quiz/): free; six questions to find your photo aesthetic (Classic Booth, Digicam Flash, Golden Film, Soft Dreamy or Cool Cinematic) and the films that match it.
+- [AI photo generator](${SITE_URL}/ai-photo-generator/): re-shoot a selfie in an AI look in the browser; 5 free photos with Google sign-in.
 - [Printable photo strip templates](${SITE_URL}/photo-strip-templates/): free 2×6 strips and 4×6 print sheets at 300 dpi with custom text, or a transparent overlay for photo booth software.
 
 ## Pages

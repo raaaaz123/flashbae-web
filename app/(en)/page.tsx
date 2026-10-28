@@ -5,7 +5,7 @@ import MagicPolaroids from "@/components/landing/MagicPolaroids";
 import StudioShowcase from "@/components/landing/StudioShowcase";
 import LooksMarquee from "@/components/landing/LooksMarquee";
 import type { Metadata } from "next";
-import { APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
+import { ALT_NAMES, APP_STORE_ID, APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
 import { GUIDES } from "@/lib/guides";
 import { HOME_ALTERNATES } from "@/lib/i18n";
 import { LOOKS } from "@/lib/looks";
@@ -49,8 +49,15 @@ export default function Home() {
                 "Free on-device film editor with face retouch",
               ],
             },
-            { "@type": "Organization", "@id": `${SITE_URL}/#org`, name: NAME, url: SITE_URL, logo: `${SITE_URL}/icon.png` },
-            { "@type": "WebSite", "@id": `${SITE_URL}/#site`, name: NAME, url: SITE_URL, publisher: { "@id": `${SITE_URL}/#org` } },
+            // name + alternateName is what Google uses for the site name in results and for brand searches, misspellings included.
+            {
+              "@type": "Organization", "@id": `${SITE_URL}/#org`, name: NAME, alternateName: ALT_NAMES, url: SITE_URL,
+              logo: `${SITE_URL}/icon.png`, ...(APP_STORE_ID ? { sameAs: [APP_STORE_URL] } : {}),
+            },
+            {
+              "@type": "WebSite", "@id": `${SITE_URL}/#site`, name: NAME, alternateName: [STORE_NAME, ...ALT_NAMES], url: SITE_URL,
+              inLanguage: "en", publisher: { "@id": `${SITE_URL}/#org` },
+            },
             {
               "@type": "FAQPage",
               mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),

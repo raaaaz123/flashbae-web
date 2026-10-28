@@ -11,7 +11,10 @@ const homeLanguages = Object.fromEntries(Object.entries(HOME_ALTERNATES).map(([k
 
 /** Feature pages, newest first. Bump a date when its page changes meaningfully. */
 const PAGES = [
-  { path: "/free-tools/", updated: "2026-10-06", priority: 0.8 },
+  { path: "/photo-booth-poses/", updated: "2026-10-28", priority: 0.9 },
+  { path: "/aesthetic-quiz/", updated: "2026-10-28", priority: 0.9 },
+  { path: "/ai-photo-generator/", updated: "2026-10-28", priority: 0.9 },
+  { path: "/free-tools/", updated: "2026-10-28", priority: 0.8 },
   { path: "/date-stamp-photo/", updated: "2026-10-06", priority: 0.9 },
   { path: "/photo-strip-templates/", updated: "2026-10-06", priority: 0.9 },
   { path: "/online-photo-booth/", updated: "2026-10-06", priority: 0.9 },
