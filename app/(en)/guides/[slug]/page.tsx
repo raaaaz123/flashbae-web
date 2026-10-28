@@ -35,7 +35,7 @@ export default async function GuidePage({ params }: Props) {
   const others = GUIDES.filter((o) => o.slug !== g.slug);
 
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -62,11 +62,12 @@ export default async function GuidePage({ params }: Props) {
           ],
         }}
       />
-      <Crumbs trail={trail} />
-      <header className="article-head">
+      <header className="sp-head">
+        <div className="sp-glow" aria-hidden="true" />
+        <Crumbs trail={trail} />
+        <p className="sp-badge">Guide · updated <time dateTime={g.updated}>{formatDate(g.updated)}</time></p>
         <h1>{g.title}</h1>
         <p className="lede">{g.description}</p>
-        <p className="meta">Updated <time dateTime={g.updated}>{formatDate(g.updated)}</time></p>
       </header>
 
       <div className="article-body">

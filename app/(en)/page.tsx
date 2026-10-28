@@ -1,32 +1,28 @@
-import FlashHero from "@/components/FlashHero";
-import BeforeAfter from "@/components/BeforeAfter";
-import BoothStrip from "@/components/BoothStrip";
-import Together from "@/components/Together";
-import AppStoreButton from "@/components/AppStoreButton";
-import Sticker from "@/components/Sticker";
-import Ribbon from "@/components/Ribbon";
-import Mascot from "@/components/Mascot";
 import JsonLd from "@/components/JsonLd";
-import LookPrints from "@/components/LookPrints";
-import { HERO_LOOKS, LOOKS, lookBySlug } from "@/lib/looks";
+import AppStoreButton from "@/components/AppStoreButton";
+import HeroArc from "@/components/landing/HeroArc";
+import MagicPolaroids from "@/components/landing/MagicPolaroids";
+import StudioShowcase from "@/components/landing/StudioShowcase";
+import LooksMarquee from "@/components/landing/LooksMarquee";
 import type { Metadata } from "next";
 import { APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
 import { GUIDES } from "@/lib/guides";
 import { HOME_ALTERNATES } from "@/lib/i18n";
+import { LOOKS } from "@/lib/looks";
+import "./landing.css";
 
 export const metadata: Metadata = { alternates: { canonical: "/", languages: HOME_ALTERNATES } };
 
-const img = (slug: string, side: "before" | "after") => lookBySlug(slug)?.[side] ?? "";
+const UPLOAD_ICON = (
+  <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 16V4m0 0-5 5m5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" /></svg>
+);
+
+/** The booth strip on the phone: four frames from the same night. */
+const STRIP = ["soft-flash", "cozy-flash", "sun-kissed", "dreamlight"].map((id) => `/looks/${id}-after.jpg`);
 
 export default function Home() {
-  const compareLooks = HERO_LOOKS.slice(0, 6);
-  const strip = ["subway-motion", "midnight-flash", "subway-still", "neon-collage"]
-    .map((s) => lookBySlug(s))
-    .filter((l) => !!l)
-    .map((l) => ({ src: l!.after, alt: `Photo booth frame in the ${l!.title} look` }));
-
   return (
-    <>
+    <div className="lp">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -63,137 +59,218 @@ export default function Home() {
         }}
       />
 
-      <section className="hero">
-        <div className="hero-copy">
-          <Sticker kind="sparkle" size={46} className="st-hero-1" spin={-8} />
-          <Sticker kind="heart" size={38} className="st-hero-2" delay={1.2} spin={12} />
-          <h1>The photo booth that lives in your phone</h1>
-          <p className="lede">
-            Shoot a four-frame strip with {BOOTH.films} film looks, booth with your bestie from across the world,
-            or let AI re-shoot your selfie in digicam flash, golden hour or Y2K.
+      {/* ---------- hero ---------- */}
+      <section className="lp-hero" aria-labelledby="hero-title">
+        <div className="lp-glow" aria-hidden="true" />
+        <HeroArc />
+        <div className="lp-hero-copy">
+          <p className="lp-badge"><span className="lp-badge-dot" />{LOOKS.length} AI looks · free to try</p>
+          <h1 id="hero-title">
+            Your selfie, <em>re-shot</em> by AI
+          </h1>
+          <p className="lp-lede">
+            Digicam flash, golden hour, night-out scenes. Keep your face and pose, change the whole mood in seconds.
           </p>
-          <div className="hero-actions">
-            <AppStoreButton href={APP_STORE_URL} />
-            <p className="fine">Free on iPhone and iPad · <a className="text-link" href="/online-photo-booth/">or try the booth online</a></p>
+          <a className="lp-drop" href="/ai-photo-generator/">
+            <span className="lp-drop-icon">{UPLOAD_ICON}</span>
+            <span className="lp-drop-title">Upload a selfie to start</span>
+            <span className="lp-drop-sub">JPG, PNG or HEIC · 5 free photos with Google sign-in</span>
+          </a>
+          <div className="lp-hero-alt">
+            <span>Or get the full photo booth on iPhone</span>
+            <AppStoreButton href={APP_STORE_URL} small />
           </div>
         </div>
-        <FlashHero looks={HERO_LOOKS.concat(LOOKS.filter((l) => !HERO_LOOKS.includes(l) && l.kind === "template"))} />
       </section>
 
-      <Ribbon />
+      <ul className="lp-stats" aria-label="Flashbae in numbers">
+        <li><strong>{LOOKS.length}</strong><span>AI looks &amp; scenes</span></li>
+        <li><strong>{BOOTH.films}</strong><span>film looks in the booth</span></li>
+        <li><strong>{BOOTH.layouts}</strong><span>photo strip layouts</span></li>
+        <li><strong>{BOOTH.languages}</strong><span>languages</span></li>
+      </ul>
 
-      <section className="panel panel-milk" aria-labelledby="looks-title">
-        <Sticker kind="star" size={50} className="st-tr" delay={0.4} spin={10} />
-        <Sticker kind="flower" size={44} className="st-bl" delay={2} spin={-10} />
-        <div className="section-head">
-          <h2 id="looks-title">Same selfie, a whole new mood</h2>
-          <p>
-            Pick a look, add a photo, and AI re-shoots it in that light. Your face and pose stay yours.
-            Drag across the photo to compare.
-          </p>
+      {/* ---------- before / after ---------- */}
+      <section className="lp-section" id="looks" aria-labelledby="magic-title">
+        <div className="lp-head">
+          <p className="lp-eyebrow">Before &amp; after</p>
+          <h2 id="magic-title">See the <em>magic</em> of an AI look</h2>
+          <p>Same selfie, same face, same pose. Pick a look and watch the light, the colour and the whole scene change.</p>
         </div>
-        <BeforeAfter looks={compareLooks} />
+        <MagicPolaroids />
       </section>
 
-      <section className="section section-booth" id="booth" aria-labelledby="booth-title">
-        <div className="booth-art">
-          <Sticker kind="sparkle" size={40} className="st-booth-1" delay={0.8} />
-          <Sticker kind="flower" size={46} className="st-booth-2" delay={1.6} spin={14} />
-          <BoothStrip frames={strip} caption="best night ever" />
+      {/* ---------- studio ---------- */}
+      <section className="lp-section lp-section-tint" id="looks-gallery" aria-labelledby="studio-title">
+        <div className="lp-head">
+          <p className="lp-eyebrow">The AI studio</p>
+          <h2 id="studio-title">One selfie, <em>every</em> mood</h2>
+          <p>Five studios, one photo. Switch the mood, pick a look and drag across the shot to see exactly what changed.</p>
         </div>
-        <div className="booth-copy">
-          <h2 id="booth-title">A real photo booth, minus the queue</h2>
-          <ol className="steps">
-            <li><strong>Pick a layout.</strong> Classic, 4-cut, Trio or 6-cut.</li>
-            <li><strong>Strike the pose it suggests.</strong> 3, 2, 1, flash, four times over.</li>
-            <li><strong>Make it yours.</strong> {BOOTH.films} films from 1930s booth to CCD cam, frames, stickers, a caption and the date.</li>
-            <li><strong>Take it with you.</strong> Save the strip, post it as a Story, or print a sheet.</li>
-          </ol>
-          <p className="fine">
-            The booth and {BOOTH.freeFilms} of its films are free, forever.{" "}
-            <a className="text-link" href="/photo-booth-app/">How the booth works</a> · <a className="text-link" href="/films/">See all {BOOTH.films} films</a>
-          </p>
+        <StudioShowcase />
+      </section>
+
+      {/* ---------- all looks ---------- */}
+      <section className="lp-section lp-section-bleed" aria-labelledby="all-title">
+        <div className="lp-head lp-head-row">
+          <div>
+            <p className="lp-eyebrow">The look book</p>
+            <h2 id="all-title">Every look, one tap away</h2>
+          </div>
+          <a className="lp-btn lp-btn-ghost" href="/looks/">Browse all looks</a>
+        </div>
+        <LooksMarquee />
+      </section>
+
+      {/* ---------- steps ---------- */}
+      <section className="lp-section" aria-labelledby="steps-title">
+        <div className="lp-head">
+          <p className="lp-eyebrow">How it works</p>
+          <h2 id="steps-title">A new photo in <em>three</em> steps</h2>
+          <p>No studio, no presets, no editing skills. Just the selfie you already have.</p>
+        </div>
+        <ol className="lp-steps">
+          <li className="lp-step">
+            <span className="lp-step-no">Step 1</span>
+            <div className="lp-step-art lp-step-upload">
+              <span className="lp-drop-icon">{UPLOAD_ICON}</span>
+              <span className="lp-step-btn">Upload photo</span>
+            </div>
+            <h3>Add your selfie</h3>
+            <p>Any clear photo of your face works: front camera, mirror shot or an old favourite.</p>
+          </li>
+          <li className="lp-step">
+            <span className="lp-step-no">Step 2</span>
+            <div className="lp-step-art lp-step-pick">
+              {["sun-kissed", "cozy-flash", "midnight-flash", "dreamlight", "disposable-flash", "subway-still"].map((id, i) => (
+                <img key={id} src={`/looks/${id}-after.jpg`} alt="" loading="lazy" className={i === 1 ? "is-on" : undefined} />
+              ))}
+            </div>
+            <h3>Pick a look</h3>
+            <p>Golden hour, digicam flash, a night-out scene or a quick fix for closed eyes.</p>
+          </li>
+          <li className="lp-step">
+            <span className="lp-step-no">Step 3</span>
+            <div className="lp-step-art lp-step-done">
+              <img src="/looks/sun-kissed-before.jpg" alt="" loading="lazy" />
+              <img src="/looks/sun-kissed-after.jpg" alt="" loading="lazy" />
+              <span className="lp-step-check" aria-hidden="true">
+                <svg viewBox="0 0 20 20" width="16" height="16"><path d="m5 10.5 3 3 7-7" /></svg>
+              </span>
+            </div>
+            <h3>Download &amp; share</h3>
+            <p>Your new photo is ready in seconds. Save it, post it, or fade it back with the intensity slider.</p>
+          </li>
+        </ol>
+        <div className="lp-center">
+          <a className="lp-btn lp-btn-dark" href="/ai-photo-generator/">Try it free in your browser</a>
         </div>
       </section>
 
-      <section className="panel panel-lilac section-together" aria-labelledby="together-title">
-        <Sticker kind="heart" size={46} className="st-tl" delay={0.3} spin={-12} />
-        <Sticker kind="heart" size={30} className="st-tl-2" delay={1.4} spin={16} />
-        <Sticker kind="sparkle" size={42} className="st-br" delay={2.2} />
-        <div className="section-head section-head-center">
-          <h2 id="together-title">Booth together when you&apos;re miles apart</h2>
-          <p>
-            Send your partner or best friend a link. You see and hear each other live, both phones count down
-            together and flash at the same moment, and you get one strip with both of you in it.{" "}
-            <a className="text-link" href="/long-distance-photo-booth/">How the long-distance booth works</a>
-          </p>
+      {/* ---------- the iPhone booth ---------- */}
+      <section className="lp-section" id="booth" aria-labelledby="booth-title">
+        <div className="lp-booth">
+          <div className="lp-booth-copy">
+            <p className="lp-eyebrow">On iPhone</p>
+            <h2 id="booth-title">The photo booth <em>in your pocket</em></h2>
+            <p>
+              The app is a real photo booth: a 3-2-1 countdown, pose prompts and a flash, then a strip you can dress up
+              with film looks, frames, stickers and the date.
+            </p>
+            <ul className="lp-checks">
+              <li><strong>{BOOTH.layouts} strip layouts</strong> Classic, 4-cut, Trio and 6-cut</li>
+              <li><strong>{BOOTH.films} film looks</strong> {BOOTH.freeFilms} of them free</li>
+              <li><strong>Booth together</strong> over live video; both phones flash at once</li>
+              <li><strong>Every AI look</strong> plus a before/after reveal video</li>
+            </ul>
+            <div className="lp-booth-actions">
+              <AppStoreButton href={APP_STORE_URL} />
+              <a className="lp-link" href="/photo-booth-app/">How the booth works →</a>
+            </div>
+          </div>
+          <div className="lp-booth-art" aria-hidden="true">
+            <div className="lp-booth-glow" />
+            <div className="lp-phone">
+              <div className="lp-phone-notch" />
+              <div className="lp-phone-screen">
+                <div className="lp-strip">
+                  {STRIP.map((src) => <img key={src} src={src} alt="" loading="lazy" />)}
+                  <span>flashbae · {new Date().getFullYear()}</span>
+                </div>
+              </div>
+            </div>
+            <span className="lp-float lp-float-1">🎞️ {BOOTH.films} films</span>
+            <span className="lp-float lp-float-2">📹 Live together</span>
+            <span className="lp-float lp-float-3">⏱ 3 · 2 · 1</span>
+          </div>
         </div>
-        <Together
-          a={{ name: "Mia", before: img("midnight-flash", "before"), after: img("midnight-flash", "after") }}
-          b={{ name: "Lena", before: img("soft-flash", "before"), after: img("soft-flash", "after") }}
-        />
       </section>
 
-      <section className="section" aria-labelledby="gallery-title">
-        <div className="section-head section-head-row">
-          <h2 id="gallery-title">New looks drop every week</h2>
-          <a className="text-link" href="/looks/">See all {LOOKS.length} looks</a>
+      {/* ---------- guides ---------- */}
+      <section className="lp-section" aria-labelledby="guides-title">
+        <div className="lp-head lp-head-row">
+          <div>
+            <p className="lp-eyebrow">Guides</p>
+            <h2 id="guides-title">Tips from the booth</h2>
+          </div>
+          <a className="lp-btn lp-btn-ghost" href="/guides/">All guides</a>
         </div>
-        <LookPrints looks={LOOKS.slice(0, 10)} />
-      </section>
-
-      <section className="section" aria-labelledby="guides-title">
-        <div className="section-head section-head-row">
-          <h2 id="guides-title">Tips from the booth</h2>
-          <a className="text-link" href="/guides/">All guides</a>
-        </div>
-        <ul className="cards">
+        <ul className="lp-guides">
           {GUIDES.map((g) => (
             <li key={g.slug}>
-              <a className="card" href={`/guides/${g.slug}/`}>
+              <a className="lp-guide" href={`/guides/${g.slug}/`}>
                 <h3>{g.title}</h3>
                 <p>{g.description}</p>
-                <span className="card-more">Read the guide</span>
+                <span className="lp-link">Read the guide →</span>
               </a>
             </li>
           ))}
           <li>
-            <a className="card" href="/digicam-filter/">
+            <a className="lp-guide" href="/digicam-filter/">
               <h3>Digicam, disposable and Y2K flash filters</h3>
               <p>Three ways to get the 2000s point-and-shoot flash on iPhone: booth films, AI looks and the film editor.</p>
-              <span className="card-more">See the flash looks</span>
+              <span className="lp-link">See the flash looks →</span>
             </a>
           </li>
         </ul>
       </section>
 
-      <Ribbon tone="butter" tilt={2} />
-
-      <section className="section section-faq" id="faq" aria-labelledby="faq-title">
-        <div className="section-head">
-          <h2 id="faq-title">Questions, answered</h2>
-          <p>Something else on your mind? <a className="text-link" href={LEGAL.support}>Ask us</a> and we&apos;ll get back to you.</p>
-        </div>
-        <div className="faq">
-          {FAQ.map((f) => (
-            <details key={f.q}>
-              <summary>{f.q}</summary>
-              <p>{f.a}</p>
-            </details>
-          ))}
+      {/* ---------- faq ---------- */}
+      <section className="lp-section" id="faq" aria-labelledby="faq-title">
+        <div className="lp-faq">
+          <div className="lp-faq-head">
+            <p className="lp-eyebrow">FAQ</p>
+            <h2 id="faq-title">Questions, answered</h2>
+            <p>Something else on your mind? <a className="lp-link" href={LEGAL.support}>Ask us</a> and we&apos;ll get back to you.</p>
+          </div>
+          <div className="lp-faq-list">
+            {FAQ.map((f) => (
+              <details key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="panel panel-cherry outro" aria-labelledby="outro-title">
-        <Sticker kind="sparkle" size={52} className="st-tl" delay={0.2} spin={-10} />
-        <Sticker kind="heart" size={40} className="st-tr" delay={1.1} spin={14} />
-        <Sticker kind="star" size={44} className="st-bl" delay={1.8} spin={-6} />
-        <Sticker kind="flower" size={46} className="st-br" delay={0.6} spin={8} />
-        <Mascot />
-        <h2 id="outro-title">Say cheese</h2>
-        <p>Tap the camera, then go take a real one.</p>
-        <AppStoreButton href={APP_STORE_URL} light />
+      {/* ---------- outro ---------- */}
+      <section className="lp-outro" aria-labelledby="outro-title">
+        <div className="lp-outro-card">
+          <div className="lp-glow" aria-hidden="true" />
+          <div className="lp-outro-fan" aria-hidden="true">
+            {["dreamlight", "cozy-flash", "sun-kissed", "midnight-flash", "soft-flash"].map((id) => (
+              <img key={id} src={`/looks/${id}-after.jpg`} alt="" loading="lazy" />
+            ))}
+          </div>
+          <h2 id="outro-title">Say <em>cheese</em></h2>
+          <p>Pick a look and re-shoot your selfie in seconds. Free to try, nothing to install.</p>
+          <div className="lp-outro-actions">
+            <a className="lp-btn lp-btn-dark" href="/ai-photo-generator/">✨ Generate your photo</a>
+            <AppStoreButton href={APP_STORE_URL} light />
+          </div>
+        </div>
       </section>
-    </>
+    </div>
   );
 }

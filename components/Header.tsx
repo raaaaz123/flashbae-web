@@ -1,7 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 import { CHROME, LOCALES } from "@/lib/i18n";
-import { APP_STORE_URL } from "@/lib/site";
-import AppStoreButton from "./AppStoreButton";
+import HeaderAccount from "./HeaderAccount";
 
 export default function Header({ locale = "en" }: { locale?: Locale }) {
   const t = CHROME[locale];
@@ -15,7 +14,18 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
       <nav aria-label="Main" className="nav">
         {t.nav.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
       </nav>
-      <AppStoreButton href={APP_STORE_URL} small label={t.getApp} />
+      <a href="/ai-photo-generator/" className="btn btn-store btn-small header-cta">
+        ✨ Try AI Studio
+      </a>
+      {/* Sign-in only exists on the English site, where the AI studio lives. */}
+      {locale === "en" && <HeaderAccount />}
+      {/* Phones get the same links in a drop-down; <details> keeps it working without script. */}
+      <details className="menu">
+        <summary aria-label="Menu"><span /><span /></summary>
+        <nav aria-label="Main menu" className="menu-panel">
+          {t.nav.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
+        </nav>
+      </details>
     </header>
   );
 }

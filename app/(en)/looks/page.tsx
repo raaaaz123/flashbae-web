@@ -29,7 +29,12 @@ export default function LooksPage() {
           Effects re-shoot your own photo and keep your scene. Templates put you in a new scene.
           Hover a look to see the photo it started from.
         </p>
-        <p className="meta">Updated <time dateTime={LOOKS_UPDATED}>{formatDate(LOOKS_UPDATED)}</time> · {LOOKS.length} looks</p>
+        <div style={{ marginTop: 16 }}>
+          <a href="/ai-photo-generator/" className="btn btn-store btn-small">
+            ✨ Open AI Generator Studio
+          </a>
+        </div>
+        <p className="meta" style={{ marginTop: 14 }}>Updated <time dateTime={LOOKS_UPDATED}>{formatDate(LOOKS_UPDATED)}</time> · {LOOKS.length} looks</p>
       </header>
       {[
         { title: "Effects", items: effects },

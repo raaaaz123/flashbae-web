@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Compare } from "@/components/BeforeAfter";
 import AppStoreButton from "@/components/AppStoreButton";
+import AIGenerator from "@/components/AIGenerator";
 import Crumbs, { crumbSchema } from "@/components/Crumbs";
 import JsonLd from "@/components/JsonLd";
 import LookPrints from "@/components/LookPrints";
@@ -83,7 +84,9 @@ export default async function LookPage({ params }: Props) {
             <li>{l.kind === "template" ? "Add a clear selfie." : "Add a selfie from your camera or gallery."}</li>
             <li>Tap <strong>Make it</strong>. About 15 seconds later it&apos;s yours to save or share.</li>
           </ol>
-          <AppStoreButton href={APP_STORE_URL} />
+          <a href="#try-studio" className="btn btn-store">
+            ✨ Generate With This Look
+          </a>
           <ul className="facts" aria-label="About this look">
             <li><strong>{template ? "Template" : "Effect"}</strong>{template ? ": a new scene" : ": keeps your scene"}</li>
             <li>{l.people > 1 ? `${l.people} people` : "One person"}</li>
@@ -92,6 +95,16 @@ export default async function LookPage({ params }: Props) {
           </ul>
         </div>
       </div>
+
+      <section className="section-tight" id="try-studio" style={{ marginTop: 52 }} aria-labelledby="try-title">
+        <div className="section-head" style={{ marginBottom: 24, textAlign: "center" }}>
+          <h2 id="try-title">Try {l.title} with your selfie</h2>
+          <p className="lede" style={{ margin: "8px auto 0" }}>
+            Upload a photo or snap one with your camera. AI re-shoots it in the {l.title} style and gives you a high-res photo to download free.
+          </p>
+        </div>
+        <AIGenerator initialLookSlug={l.slug} />
+      </section>
 
       <div className="prose" style={{ marginTop: 64 }}>
         <h2>Tips for the best {l.title} photo</h2>

@@ -25,8 +25,7 @@ type Chrome = {
 export const CHROME: Record<Locale, Chrome> = {
   en: {
     nav: [
-      { href: "/looks/", label: "Looks" },
-      { href: "/photo-booth-app/", label: "Photo booth" },
+      { href: "/ai-photo-generator/", label: "AI Generator" },
       { href: "/free-tools/", label: "Free tools" },
       { href: "/films/", label: "Films" },
       { href: "/guides/", label: "Guides" },

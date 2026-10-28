@@ -6,6 +6,30 @@ import type { Look } from "@/lib/looks";
 
 /** One before/after: the look over the original, split by a handle you drag (or arrow-key). */
 export function Compare({ look, priority = false }: { look: Look; priority?: boolean }) {
+  return (
+    <CompareImages
+      before={look.before}
+      after={look.after}
+      beforeAlt={`The original selfie before ${look.title}`}
+      afterAlt={`${look.title} look applied to the selfie`}
+      afterLabel={look.title}
+      label={`Compare before and after ${look.title}`}
+      priority={priority}
+    />
+  );
+}
+
+/** The same slider for any two images, such as a selfie and what AI made of it. */
+export function CompareImages({ before, after, beforeAlt, afterAlt, beforeLabel = "Before", afterLabel, label, priority = false }: {
+  before: string;
+  after: string;
+  beforeAlt: string;
+  afterAlt: string;
+  beforeLabel?: string;
+  afterLabel: string;
+  label: string;
+  priority?: boolean;
+}) {
   const box = useRef<HTMLDivElement>(null);
   const split = useMotionValue(50);
   // The before covers the left part: clip off everything right of the handle.
@@ -43,19 +67,19 @@ export function Compare({ look, priority = false }: { look: Look; priority?: boo
       }}
       onPointerMove={(e) => e.buttons === 1 && fromPointer(e)}
     >
-      <img src={look.after} alt={`${look.title} look applied to the selfie`} className="compare-img" draggable={false}
+      <img src={after} alt={afterAlt} className="compare-img" draggable={false}
            fetchPriority={priority ? "high" : "auto"} />
-      <motion.img src={look.before} alt={`The original selfie before ${look.title}`} className="compare-img"
+      <motion.img src={before} alt={beforeAlt} className="compare-img"
                   style={{ clipPath: clip }} draggable={false} />
-      <span className="compare-tag compare-tag-before">Before</span>
-      <span className="compare-tag compare-tag-after">{look.title}</span>
+      <span className="compare-tag compare-tag-before">{beforeLabel}</span>
+      <span className="compare-tag compare-tag-after">{afterLabel}</span>
       <motion.div className="compare-line" style={{ left }} aria-hidden="true" />
       <motion.div
         className="compare-handle"
         style={{ left }}
         role="slider"
         tabIndex={0}
-        aria-label={`Compare before and after ${look.title}`}
+        aria-label={label}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={value}

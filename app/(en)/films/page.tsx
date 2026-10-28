@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Films() {
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -38,24 +38,32 @@ export default function Films() {
           ],
         }}
       />
-      <Crumbs trail={[{ name: "Film looks", path: PATH }]} />
-
-      <header className="article-head">
-        <h1>{BOOTH.films} film looks for your photo strips</h1>
+      <header className="sp-head">
+        <div className="sp-glow" aria-hidden="true" />
+        <Crumbs trail={[{ name: "Film looks", path: PATH }]} />
+        <p className="sp-badge">{BOOTH.freeFilms} of {BOOTH.films} free in the iPhone booth</p>
+        <h1>{BOOTH.films} <em>film looks</em> for your photo strips</h1>
         <p className="lede">
           A film sets the mood of the whole strip: its colour, grain, flash, glow and vignette, with an intensity slider.
           {" "}{BOOTH.freeFilms} are free, including Natural, which keeps true colour with a touch of grain.
         </p>
         <AppStoreButton href={APP_STORE_URL} />
+        <nav className="sp-jump" aria-label="Film groups">
+          {FILM_GROUPS.map((g) => <a key={g.id} href={`#g-${g.id}`}>{g.title}</a>)}
+        </nav>
       </header>
 
       {FILM_GROUPS.map((g) => (
         <section key={g.id} className="section-tight" aria-labelledby={`g-${g.id}`}>
-          <h2 id={`g-${g.id}`}>{g.title}</h2>
-          <p className="lede" style={{ marginBottom: 20 }}>{g.intro}</p>
+          <div className="sp-section-head">
+            <div>
+              <h2 id={`g-${g.id}`}>{g.title}</h2>
+              <p>{g.intro}</p>
+            </div>
+          </div>
           <ul className="films">
             {FILMS.filter((f) => f.group === g.id).map((f) => (
-              <li key={f.id} id={f.id} className="film">
+              <li key={f.id} id={f.id} className="film" data-group={g.id}>
                 <h3>{f.title}{f.free && <span className="tag">Free</span>}</h3>
                 <p>{f.text}</p>
               </li>
@@ -64,7 +72,7 @@ export default function Films() {
         </section>
       ))}
 
-      <div className="prose" style={{ marginTop: 56 }}>
+      <div className="sp-notes">
         <h2>Films, AI looks and the film editor</h2>
         <p>
           Films are for photo strips: one film covers every frame so the strip matches, and it&apos;s applied on your phone

@@ -27,3 +27,12 @@ layout (`app/(en)`, `app/ja`, `app/ko`) so `<html lang>` is right; `app/global-n
 Looks refresh: `.github/workflows/looks.yml` runs `npm run looks` every Monday and opens a pull request when the
 catalog changed. Each look keeps the date it first appeared (`added`), which the pages and sitemap show. Turn on
 Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests" for it to work.
+
+## Google sign-in (AI generator)
+
+Generating an AI photo needs a Google sign-in; new accounts get 5 free credits, once.
+
+1. Google Cloud console → APIs & Services → Credentials → Create OAuth client ID → **Web application**.
+2. Authorized JavaScript origins: `https://flashbae.app` and `http://localhost:3100` (plus `http://localhost` for local testing). No redirect URI is needed.
+3. Website: set `NEXT_PUBLIC_GOOGLE_CLIENT_ID=<client id>` (Vercel env and `.env.local`).
+4. Backend (`langify_backend`): set `FLASHBIE_GOOGLE_CLIENT_IDS=<client id>`. Credits: `FLASHBIE_WEB_SIGNUP_CREDITS` (default 5, one-time) and `FLASHBIE_WEB_DAILY_CREDITS` (default 0).

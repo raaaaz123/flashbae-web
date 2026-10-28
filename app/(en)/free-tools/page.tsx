@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function FreeTools() {
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -33,23 +33,37 @@ export default function FreeTools() {
           ],
         }}
       />
-      <Crumbs trail={[{ name: "Free tools", path: PATH }]} />
-      <header className="article-head">
-        <h1>Free photo booth tools</h1>
+      <header className="sp-head">
+        <div className="sp-glow" aria-hidden="true" />
+        <Crumbs trail={[{ name: "Free tools", path: PATH }]} />
+        <p className="sp-badge">Free · no sign-up · runs in your browser</p>
+        <h1>Free photo booth <em>tools</em></h1>
         <p className="lede">{DESCRIPTION}</p>
       </header>
       <section className="section-tight" aria-labelledby="tools-title">
         <h2 id="tools-title" className="sr-only">Tools</h2>
-        <ul className="cards">
+        <ul className="cards cards-row">
           {TOOLS.map((t) => (
             <li key={t.href}>
-              <a className="card" href={t.href}>
+              <a className="card card-media" href={t.href}>
+                <span className="card-art" aria-hidden="true"><span className="card-art-icon">{t.icon}</span></span>
                 <h3>{t.title}</h3>
                 <p>{t.text}</p>
                 <span className="card-more">Open the tool</span>
               </a>
             </li>
           ))}
+          <li>
+            <a className="card card-media" href="/ai-photo-generator/">
+              <span className="card-art" aria-hidden="true">
+                <img src="/looks/sun-kissed-after.jpg" alt="" loading="lazy" />
+                <span className="card-art-tag">✨ AI</span>
+              </span>
+              <h3>AI photo studio</h3>
+              <p>Re-shoot a selfie in digicam flash, golden hour or a whole new scene. 5 free photos when you sign in with Google.</p>
+              <span className="card-more">Open the studio</span>
+            </a>
+          </li>
         </ul>
       </section>
       <GetApp title="The whole booth, on iPhone" text="33 films, booth together over live video, and AI looks. Free to download." />

@@ -1,6 +1,7 @@
 import raw from "./looks.json";
 
 export type Look = {
+  id: string;
   slug: string;
   title: string;
   tagline: string;
@@ -27,9 +28,21 @@ const TAGLINES: Record<string, string> = {
 const slugify = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+/** Top popular styles featured in trending */
+const TRENDING_IDS = new Set([
+  "dreamlight",
+  "sun-kissed",
+  "adds-warm-cinematic-tones-and-soft-motio",
+  "soft-flash",
+  "midnight-flash",
+  "cozy-flash",
+  "disposable-flash",
+]);
+
 export const LOOKS: Look[] = raw
   .filter((l) => !HIDDEN.has(l.id))
   .map((l) => ({
+    id: l.id,
     slug: slugify(l.title),
     title: l.title.charAt(0).toUpperCase() + l.title.slice(1),
     // The admin sometimes wraps taglines in quotes.
@@ -37,7 +50,7 @@ export const LOOKS: Look[] = raw
     category: l.category,
     kind: l.kind === "template" ? "template" : "effect",
     premium: l.premium,
-    trending: l.trending,
+    trending: l.trending || TRENDING_IDS.has(l.id),
     people: l.people ?? 1,
     before: l.before,
     after: l.after,
@@ -45,6 +58,7 @@ export const LOOKS: Look[] = raw
   }));
 
 export const lookBySlug = (slug: string) => LOOKS.find((l) => l.slug === slug);
+export const lookById = (id: string) => LOOKS.find((l) => l.id === id);
 
 /** The pairs the hero develops, in order: the most flattering transformations first. */
 export const HERO_SLUGS = ["dreamlight", "sun-kissed", "dream-motion", "soft-flash", "y2k-flash", "disposable-flash", "cozy-flash"];

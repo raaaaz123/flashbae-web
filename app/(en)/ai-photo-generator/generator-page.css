@@ -1,0 +1,54 @@
+/* The generator page: the home page's bright studio canvas around the wizard. */
+
+body:has(.genpage) { background: #faf8f6; }
+
+.genpage {
+  --ink: #17121a;
+  --ink-2: rgba(23, 18, 26, 0.62);
+  --line: rgba(23, 18, 26, 0.08);
+  --sans: var(--font-lp), -apple-system, "Segoe UI", sans-serif;
+  --serif: var(--font-lp-serif), Georgia, serif;
+  color: var(--ink); font-family: var(--sans);
+  padding: 0 var(--gutter) clamp(64px, 9vw, 112px);
+  overflow-x: clip;
+}
+
+.genpage-head { position: relative; display: grid; justify-items: center; gap: 16px; text-align: center; padding: 20px 0 clamp(28px, 4vw, 44px); }
+.genpage-head > :not(.genpage-glow) { position: relative; }
+.genpage-glow {
+  position: absolute; left: 50%; top: 20%; width: min(820px, 130vw); aspect-ratio: 2; transform: translate(-50%, -30%);
+  background:
+    radial-gradient(closest-side at 35% 55%, rgba(255, 111, 155, 0.22), transparent),
+    radial-gradient(closest-side at 65% 45%, rgba(169, 139, 255, 0.24), transparent),
+    radial-gradient(closest-side at 50% 80%, rgba(255, 196, 138, 0.2), transparent);
+  filter: blur(30px); pointer-events: none;
+}
+.genpage .crumbs { margin: 0; font-size: 0.85rem; color: var(--ink-2); }
+.genpage .crumbs a { color: var(--ink-2); }
+.genpage-badge {
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px 7px 10px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8); box-shadow: inset 0 0 0 1px var(--line); font-size: 0.86rem; font-weight: 500; color: var(--ink-2);
+}
+.genpage-badge span { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, #ff6f9b, #a98bff); box-shadow: 0 0 0 4px rgba(255, 111, 155, 0.15); }
+.genpage h1 {
+  font-family: var(--sans); font-variation-settings: normal; font-weight: 600;
+  font-size: clamp(2.5rem, 6vw, 4.6rem); letter-spacing: -0.04em; line-height: 1;
+}
+.genpage h1 em {
+  font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em;
+  background: linear-gradient(100deg, #ff6f9b, #a98bff 60%, #ff9b6b);
+  -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: 0.06em;
+}
+.genpage-lede { max-width: 34em; color: var(--ink-2); font-size: clamp(1rem, 1.5vw, 1.15rem); }
+
+.genpage-trust {
+  list-style: none; max-width: 1080px; margin: clamp(36px, 5vw, 56px) auto 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+}
+.genpage-trust li { display: grid; gap: 4px; padding: 20px 22px; border-radius: 22px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); color: var(--ink-2); font-size: 0.92rem; }
+.genpage-trust strong { color: var(--ink); font-size: 1rem; }
+
+@media (max-width: 760px) {
+  .genpage-head { padding-top: 12px; }
+  .genpage-trust { grid-template-columns: 1fr; }
+}

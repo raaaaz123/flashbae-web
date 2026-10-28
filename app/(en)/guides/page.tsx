@@ -16,6 +16,13 @@ export const metadata: Metadata = {
 };
 
 /** The guides, plus the feature pages, which answer the same kinds of questions. */
+/** A photo for each guide's card, from the look closest to its subject. */
+const COVERS: Record<string, string> = {
+  "y2k-flash-photos": "/looks/disposable-flash-after.jpg",
+  "photo-strip-on-iphone": "/looks/face-roll-after.jpg",
+  "photo-booth-pose-ideas": "/looks/cozy-flash-after.jpg",
+};
+
 const FEATURES = [
   { href: "/online-photo-booth/", title: "Free online photo booth", text: "Take a strip with your webcam or phone camera, right in the browser." },
   { href: "/photo-strip-maker/", title: "Free photo strip maker", text: "Turn photos you already have into a booth strip." },
@@ -26,7 +33,7 @@ const FEATURES = [
 
 export default function Guides() {
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -40,9 +47,11 @@ export default function Guides() {
           ],
         }}
       />
-      <Crumbs trail={[{ name: "Guides", path: PATH }]} />
-      <header className="article-head">
-        <h1>Photo booth guides</h1>
+      <header className="sp-head">
+        <div className="sp-glow" aria-hidden="true" />
+        <Crumbs trail={[{ name: "Guides", path: PATH }]} />
+        <p className="sp-badge">From the makers of {NAME}</p>
+        <h1>Photo booth <em>guides</em></h1>
         <p className="lede">{DESCRIPTION}</p>
       </header>
       <section className="section-tight" aria-labelledby="guides-title">
@@ -50,7 +59,11 @@ export default function Guides() {
         <ul className="cards">
           {GUIDES.map((g) => (
             <li key={g.slug}>
-              <a className="card" href={`/guides/${g.slug}/`}>
+              <a className="card card-media" href={`/guides/${g.slug}/`}>
+                <span className="card-art" aria-hidden="true">
+                  {COVERS[g.slug] ? <img src={COVERS[g.slug]} alt="" loading="lazy" /> : <span className="card-art-icon">📖</span>}
+                  <span className="card-art-tag">Guide</span>
+                </span>
                 <h3>{g.title}</h3>
                 <p>{g.description}</p>
                 <span className="card-more">Read the guide</span>
@@ -60,13 +73,19 @@ export default function Guides() {
         </ul>
       </section>
       <section className="section-tight" aria-labelledby="features-title">
-        <h2 id="features-title">More from the booth</h2>
+        <div className="sp-section-head">
+          <div>
+            <span className="sp-eyebrow">Keep exploring</span>
+            <h2 id="features-title">More from the booth</h2>
+          </div>
+        </div>
         <ul className="cards">
           {FEATURES.map((f) => (
             <li key={f.href}>
               <a className="card" href={f.href}>
                 <h3>{f.title}</h3>
                 <p>{f.text}</p>
+                <span className="card-more">Open</span>
               </a>
             </li>
           ))}
