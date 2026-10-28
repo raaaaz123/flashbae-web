@@ -200,6 +200,27 @@ export type GenerateOptions = {
 };
 
 /**
+ * The photo as the iPhone app uploads it: upright, at most 1600px on the long side, JPEG at 0.88. The server
+ * works at that size anyway, so a full-size original only makes the upload slower. A photo the browser can't
+ * decode (HEIC in some browsers) goes up as it is and the server reads it.
+ */
+async function uploadJpeg(photo: Blob, maxSide = 1600): Promise<Blob> {
+  try {
+    const bmp = await createImageBitmap(photo, { imageOrientation: "from-image" });
+    const scale = Math.min(1, maxSide / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    canvas.getContext("2d")!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    bmp.close();
+    const jpeg = await new Promise<Blob | null>((done) => canvas.toBlob(done, "image/jpeg", 0.88));
+    return jpeg ?? photo;
+  } catch {
+    return photo;
+  }
+}
+
+/**
  * Generate an AI photo using the Flashbae backend.
  */
 export async function generateLookPhoto(options: GenerateOptions): Promise<GenerateResponse> {
@@ -207,13 +228,13 @@ export async function generateLookPhoto(options: GenerateOptions): Promise<Gener
 
   const formData = new FormData();
   formData.append("look_id", options.lookId);
-  formData.append("photo", options.photo, "photo.jpg");
+  formData.append("photo", await uploadJpeg(options.photo), "photo.jpg");
 
   if (options.photo2) {
-    formData.append("photo2", options.photo2, "photo2.jpg");
+    formData.append("photo2", await uploadJpeg(options.photo2), "photo2.jpg");
   }
   if (options.photo3) {
-    formData.append("photo3", options.photo3, "photo3.jpg");
+    formData.append("photo3", await uploadJpeg(options.photo3), "photo3.jpg");
   }
 
   let res = await fetch(`${API_BASE}/generate`, {
