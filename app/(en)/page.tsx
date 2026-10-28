@@ -84,8 +84,8 @@ export default function Home() {
             <span className="lp-drop-sub">JPG, PNG or HEIC · 5 free photos with Google sign-in</span>
           </a>
           <div className="lp-hero-alt">
-            <span>Or get the full photo booth on iPhone</span>
-            <AppStoreButton href={APP_STORE_URL} small />
+            <span>Already made some?</span>
+            <a className="btn btn-store btn-small" href="/my-photos/">My photos</a>
           </div>
         </div>
       </section>

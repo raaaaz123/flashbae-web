@@ -488,7 +488,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                 </div>
 
                 <div className="gen-grid" role="radiogroup" aria-label="Looks">
-                  {shown.map((l) => (
+                  {shown.map((l, i) => (
                     <button
                       key={l.id}
                       type="button"
@@ -500,7 +500,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                     >
                       <span className="gen-look-img">
                         <img src={l.after} alt="" loading="lazy" />
-                        <img src={l.before} alt="" loading="lazy" className="gen-look-before" />
+                        <img src={l.before} alt="" loading="lazy" className="gen-look-before" style={{ "--swap-delay": `${-(i % 6)}s` } as React.CSSProperties} />
                         <span className="gen-look-check">{CHECK}</span>
                         {l.people > 1 && <span className="gen-look-tag">2 people</span>}
                       </span>

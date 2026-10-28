@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import GoogleSignIn from "@/components/GoogleSignIn";
-import { ACCOUNT_EVENT, fetchMe, getCachedProfile, isUserSignedIn, loginWithGoogle, type UserMe } from "@/lib/flashbie-api";
+import { ACCOUNT_EVENT, fetchMe, getCachedProfile, isUserSignedIn, loginWithGoogle, logoutUser, type UserMe } from "@/lib/flashbie-api";
 
 /** The account corner of the header: who's signed in and their credits, or a Sign in button. */
 export default function HeaderAccount() {
@@ -51,6 +51,12 @@ export default function HeaderAccount() {
     }
   };
 
+  const signOut = () => {
+    logoutUser();
+    window.dispatchEvent(new CustomEvent(ACCOUNT_EVENT, { detail: null })); // the studio and My photos drop the account too
+    setOpen(false);
+  };
+
   if (!ready) return <div className="acct acct-placeholder" aria-hidden="true" />;
 
   const signedIn = Boolean(me?.signed_in);
@@ -97,6 +103,7 @@ export default function HeaderAccount() {
               </div>
               <a className="acct-link" href="/my-photos/">🖼️ My photos</a>
               <a className="acct-go" href="/ai-photo-generator/">✨ Open AI Studio</a>
+              <button type="button" className="acct-out" onClick={signOut}>Sign out</button>
             </>
           ) : (
             <>
