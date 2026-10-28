@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import { CHROME } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PostHogProvider from "@/components/PostHogProvider";
 import "@/app/globals.css";
 import "@/app/studio.css";
 
@@ -25,6 +26,7 @@ export default function SiteShell({ locale, children }: { locale: Locale; childr
         <main id="main">{children}</main>
         <Footer locale={locale} />
         <Analytics />
+        <PostHogProvider />
       </body>
     </html>
   );
