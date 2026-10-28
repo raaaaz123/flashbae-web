@@ -114,7 +114,7 @@ export default function MyPhotos() {
         {photos.map((p) => (
           <li key={p.id} className="mp-item">
             <button type="button" className="mp-thumb" onClick={() => setViewing(p)} aria-label={`View ${p.look_title} photo from ${when(p.created_at)}`}>
-              <img src={p.url} alt="" loading="lazy" data-ph-block />
+              <img src={p.url} alt="" loading="lazy" />
             </button>
             <div className="mp-meta">
               <span>
@@ -143,7 +143,7 @@ export default function MyPhotos() {
                       onClick={(e) => e.target === e.currentTarget && setViewing(null)}>
             <motion.figure role="dialog" aria-modal="true" aria-label={`${viewing.look_title} photo`}
                            initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }}>
-              <img data-ph-block src={viewing.url} alt={`${viewing.look_title} photo`} />
+              <img src={viewing.url} alt={`${viewing.look_title} photo`} />
               <figcaption>
                 <span>
                   <strong>{viewing.look_title}</strong>

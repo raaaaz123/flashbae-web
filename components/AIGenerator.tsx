@@ -359,7 +359,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
         {needsTwo && <p className="gen-slot-label">{n === 1 ? "Person 1 · you" : "Person 2"}</p>}
         {preview ? (
           <div className="gen-slot-preview">
-            <img data-ph-block src={preview} alt={n === 1 ? "Your photo" : "Second person's photo"} />
+            <img src={preview} alt={n === 1 ? "Your photo" : "Second person's photo"} />
             <button type="button" className="gen-slot-swap" onClick={clear}>Replace</button>
             <span className="gen-slot-ok">{CHECK}</span>
           </div>
@@ -594,7 +594,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                 <p className="gen-eyebrow">Step 3 of 4</p>
                 <div className="gen-dev-print">
                   <div className="gen-dev-img">
-                    {preview1 && <img data-ph-block src={preview1} alt="" />}
+                    {preview1 && <img src={preview1} alt="" />}
                     <span className="gen-dev-scan" />
                   </div>
                   <span className="gen-dev-caption">{look.title}</span>
@@ -613,7 +613,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
               <section aria-labelledby="gen-result-title">
                 <div className="gen-result">
                   <figure className="gen-result-photo">
-                    <img data-ph-block src={generatedPhoto.url} alt={`Your photo with ${look.title}`} />
+                    <img src={generatedPhoto.url} alt={`Your photo with ${look.title}`} />
                     <span className="gen-result-tag">{look.title}</span>
                   </figure>
                   <div className="gen-result-side">

@@ -14,7 +14,7 @@ Build-time settings:
 - `NEXT_PUBLIC_SITE_URL` — the real domain (default https://www.flashbae.com — flashbae.com redirects there); used for canonical URLs, the sitemap and structured data.
 - `NEXT_PUBLIC_APP_STORE_ID` — once the app is live: download buttons go straight to the App Store and Safari shows the smart app banner.
 
-- `NEXT_PUBLIC_POSTHOG_KEY` / `NEXT_PUBLIC_POSTHOG_HOST` — PostHog analytics and session replay (defaults to the Flashbae project on us.i.posthog.com). Replays mask inputs and block canvases and anything marked `data-ph-block`, which is where visitors' own photos appear.
+- `NEXT_PUBLIC_POSTHOG_KEY` / `NEXT_PUBLIC_POSTHOG_HOST` — PostHog analytics and session replay (defaults to the Flashbae project on us.i.posthog.com). Replays are recorded unmasked.
 
 Content lives in `lib/site.ts` (copy, FAQ), `lib/looks.ts` (which looks are shown; `HIDDEN` keeps
 celebrity look-alikes and trademarked/poster shots off the site), `lib/films.ts` (the booth films, kept in step with

@@ -8,10 +8,7 @@ import posthog from "posthog-js";
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "phc_rj7GJUUm5aca9KPQyshFkCUnoR3Jb4PqSH5T2VnaP6py";
 const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "https://us.i.posthog.com";
 
-/**
- * Product analytics and session replay. Visitors upload their own photos to the tools and the AI studio, so replays
- * mask every input and block canvases and anything marked `data-ph-block` (previews, results, "My photos").
- */
+/** Product analytics and session replay, recorded unmasked. */
 export default function PostHogProvider() {
   useEffect(() => {
     if (!KEY || posthog.__loaded) return;
@@ -20,10 +17,8 @@ export default function PostHogProvider() {
       person_profiles: "identified_only",
       capture_pageview: "history_change",
       capture_pageleave: true,
-      session_recording: {
-        maskAllInputs: true,
-        blockSelector: "canvas, video, [data-ph-block]",
-      },
+      // Replays record everything as-is: no input masking and no blocked elements.
+      session_recording: { maskAllInputs: false, maskTextSelector: undefined, blockSelector: undefined },
     });
   }, []);
   return null;
