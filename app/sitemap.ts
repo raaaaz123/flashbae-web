@@ -24,6 +24,7 @@ const PAGES = [
   { path: "/digicam-filter/", updated: "2026-10-06", priority: 0.8 },
   { path: "/films/", updated: "2026-10-06", priority: 0.7 },
   { path: "/guides/", updated: "2026-10-06", priority: 0.6 },
+  { path: "/delete-account/", updated: "2026-10-29", priority: 0.3 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

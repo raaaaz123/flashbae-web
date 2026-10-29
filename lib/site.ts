@@ -26,10 +26,13 @@ export const DESCRIPTION =
 export const META_DESCRIPTION =
   "AI photo booth for iPhone: photo strips with 33 film looks, booths with friends over live video, and AI looks like digicam flash and golden hour. Free.";
 
+export const SUPPORT_EMAIL = "rexatechin@gmail.com";
+
 export const LEGAL = {
   privacy: "https://vocavoy.dietly.life/flashbie/privacy",
   terms: "https://vocavoy.dietly.life/flashbie/terms",
   support: "https://vocavoy.dietly.life/flashbie/support",
+  deleteAccount: `${SITE_URL}/delete-account/`,
 };
 
 export const BOOTH = { layouts: 4, films: 33, freeFilms: 11, languages: 14 };

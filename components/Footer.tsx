@@ -55,6 +55,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
         <a href={LEGAL.support}>{t.footer.support}</a>
         <a href={LEGAL.privacy}>{t.footer.privacy}</a>
         <a href={LEGAL.terms}>{t.footer.terms}</a>
+        {en && <a href="/delete-account/">Delete account</a>}
       </nav>
       <nav aria-label={t.footer.language} className="footer-col">
         <h2>{t.footer.language}</h2>
