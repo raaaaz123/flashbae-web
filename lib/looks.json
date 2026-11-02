@@ -219,5 +219,70 @@
     "before": "/looks/neon-collage-before.jpg",
     "after": "/looks/neon-collage-after.jpg",
     "added": "2026-10-05"
+  },
+  {
+    "id": "gold-200",
+    "title": "Gold 200",
+    "tagline": "Warm 35mm film glow, like a roll from a point-and-shoot.",
+    "kind": "effect",
+    "category": "Flash",
+    "premium": false,
+    "trending": false,
+    "people": 1,
+    "before": "/looks/gold-200-before.jpg",
+    "after": "/looks/gold-200-after.jpg",
+    "added": "2026-11-02"
+  },
+  {
+    "id": "paparazzi-flash",
+    "title": "Paparazzi Flash",
+    "tagline": "Harsh night flash, glowing skin, black background. Leaving-the-party energy.",
+    "kind": "effect",
+    "category": "Flash",
+    "premium": false,
+    "trending": false,
+    "people": 1,
+    "before": "/looks/paparazzi-flash-before.jpg",
+    "after": "/looks/paparazzi-flash-after.jpg",
+    "added": "2026-11-02"
+  },
+  {
+    "id": "2016-filter",
+    "title": "2016 Filter",
+    "tagline": "Bright, warm and saturated: the 2016 Instagram feed is back.",
+    "kind": "effect",
+    "category": "Flash",
+    "premium": false,
+    "trending": false,
+    "people": 1,
+    "before": "/looks/2016-filter-before.jpg",
+    "after": "/looks/2016-filter-after.jpg",
+    "added": "2026-11-02"
+  },
+  {
+    "id": "opal-glow",
+    "title": "Opal Glow",
+    "tagline": "Dreamy prism light and rainbow glow, like a crystal held to the lens.",
+    "kind": "effect",
+    "category": "Flash",
+    "premium": false,
+    "trending": false,
+    "people": 1,
+    "before": "/looks/opal-glow-before.jpg",
+    "after": "/looks/opal-glow-after.jpg",
+    "added": "2026-11-02"
+  },
+  {
+    "id": "instant-film",
+    "title": "Instant Film",
+    "tagline": "Soft, faded instant-film colour, like a party snapshot pinned to the wall.",
+    "kind": "effect",
+    "category": "Flash",
+    "premium": false,
+    "trending": false,
+    "people": 1,
+    "before": "/looks/instant-film-before.jpg",
+    "after": "/looks/instant-film-after.jpg",
+    "added": "2026-11-02"
   }
 ]
