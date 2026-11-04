@@ -3,6 +3,7 @@ import Crumbs, { crumbSchema } from "@/components/Crumbs";
 import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import { NAME, SITE_URL } from "@/lib/site";
+import { LANDINGS } from "@/lib/landings";
 import { TOOLS } from "@/lib/tools";
 
 const PATH = "/free-tools/";
@@ -29,7 +30,8 @@ export default function FreeTools() {
             {
               "@type": "ItemList",
               name: `${NAME} free tools`,
-              itemListElement: TOOLS.map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.title, url: `${SITE_URL}${t.href}` })),
+              itemListElement: [...TOOLS.map((t) => ({ name: t.title, href: t.href })), ...LANDINGS.map((l) => ({ name: l.name, href: `/${l.slug}/` }))]
+                .map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, url: `${SITE_URL}${t.href}` })),
             },
           ],
         }}
@@ -65,6 +67,21 @@ export default function FreeTools() {
               <span className="card-more">Open the studio</span>
             </a>
           </li>
+        </ul>
+      </section>
+      <section className="section-tight" aria-labelledby="presets-title">
+        <h2 id="presets-title">Filters and booths, ready to go</h2>
+        <ul className="cards cards-row">
+          {LANDINGS.map((l) => (
+            <li key={l.slug}>
+              <a className="card card-media" href={`/${l.slug}/`}>
+                <span className="card-art" aria-hidden="true"><span className="card-art-icon">{l.icon}</span></span>
+                <h3>{l.name}</h3>
+                <p>{l.description}</p>
+                <span className="card-more">Open it</span>
+              </a>
+            </li>
+          ))}
         </ul>
       </section>
       <GetApp title="The whole booth, on iPhone" text="33 films, booth together over live video, and AI looks. Free to download." />

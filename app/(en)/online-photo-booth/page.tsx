@@ -14,7 +14,7 @@ const DESCRIPTION =
   "then download your photo strip. No sign-up, nothing uploaded.";
 
 export const metadata: Metadata = {
-  title: `${TITLE}: take a photo strip with your webcam`,
+  title: "Free online photo booth (photobooth online): webcam photo strip",
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
@@ -76,7 +76,7 @@ export default function OnlinePhotoBooth() {
         <h1>Free online photo booth</h1>
         <p className="lede">
           Your webcam or phone camera, turned into a photo booth: a pose prompt, a 3, 2, 1 countdown and a flash for every frame.
-          Then pick a film and download your strip. Free, no sign-up, and nothing is uploaded.
+          Then pick a film and download your strip. Free, no sign-up, and nothing is uploaded: a photobooth online that works on any laptop or phone.
         </p>
       </header>
 
@@ -99,6 +99,14 @@ export default function OnlinePhotoBooth() {
             <li>Prop the phone or laptop at eye level and step back so you all fit.</li>
             <li>Change it up each frame. Stuck? Spin the <a href="/photo-booth-poses/">pose generator</a> or read these <a href="/guides/photo-booth-pose-ideas/">photo booth pose ideas</a>.</li>
           </ul>
+          <h2 id="more">More ways to use the booth</h2>
+          <p>
+            Want a Korean-style grid? Open the <a href="/4-cut-photo-booth/">4 cut photo booth</a>. For a classic silver strip, try
+            the <a href="/black-and-white-photo-booth/">black and white photo booth</a>, or go old-school with the{" "}
+            <a href="/vintage-photo-booth/">vintage photo booth</a>. Two people can share the camera: sit close, pick the 4-cut layout
+            and take turns leading the pose. For a photo booth with someone far away, use{" "}
+            <a href="/long-distance-photo-booth/">Flashbae on iPhone</a>, which puts you both on live video.
+          </p>
           <p>Already have the photos? Use the <a href="/photo-strip-maker/">photo strip maker</a> instead.</p>
         </div>
         <nav className="toc" aria-label="On this page">

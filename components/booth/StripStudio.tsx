@@ -12,6 +12,8 @@ type Props = {
   /** "Retake" in the booth, "Start over" in the maker. */
   restartLabel: string;
   onRestart: () => void;
+  /** The film the strip opens in (a WEB_FILMS id); landing pages pick the one their search is about. */
+  initialFilm?: string;
 };
 
 /** Films stay cached per photo, so switching frame colour or typing a caption never refilms anything. */
@@ -26,8 +28,8 @@ function cellFor(photo: Source, film: WebFilm, w: number, h: number, seed: numbe
   return c;
 }
 
-export default function StripStudio({ layout, photos, restartLabel, onRestart }: Props) {
-  const [film, setFilm] = useState<WebFilm>(WEB_FILMS[1]);
+export default function StripStudio({ layout, photos, restartLabel, onRestart, initialFilm }: Props) {
+  const [film, setFilm] = useState<WebFilm>(WEB_FILMS.find((f) => f.id === initialFilm) ?? WEB_FILMS[1]);
   const [frame, setFrame] = useState(FRAMES[0]);
   const [caption, setCaption] = useState("");
   const [showDate, setShowDate] = useState(true);

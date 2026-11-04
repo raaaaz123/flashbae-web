@@ -5,16 +5,16 @@ import Faq, { faqSchema } from "@/components/Faq";
 import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import LookPrints from "@/components/LookPrints";
+import DateStamp from "@/components/booth/DateStamp";
 import { FILMS } from "@/lib/films";
 import { lookBySlug } from "@/lib/looks";
 import type { Look } from "@/lib/looks";
 import { APP_STORE_URL, NAME } from "@/lib/site";
 
 const PATH = "/digicam-filter/";
-const TITLE = "Digicam, disposable camera and Y2K flash filters for iPhone";
+const TITLE = "Digicam filter online, free: Y2K digital camera effect";
 const DESCRIPTION =
-  `Get the digicam flash look on iPhone with ${NAME}: CCD Cam, Y2K Digicam and Disposable films for photo strips, ` +
-  "AI looks that re-shoot your selfie with a direct flash, and free film editor filters.";
+  "Free digicam filter online: give any photo the cool CCD colour, flash and date stamp of a 2000s digital camera. No app, no sign-up, nothing uploaded.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -27,6 +27,10 @@ const FLASH_FILMS = ["ccd", "y2kdigi", "disposable", "flashglow", "noirflash", "
 const FLASH_LOOKS = ["disposable-flash", "midnight-flash", "soft-flash", "cozy-flash"];
 
 const FAQ = [
+  { q: "Is there a digicam filter online for free?",
+    a: "Yes, at the top of this page. Choose a photo, pick CCD Cam for the cool digicam colour or Flash Glow for a bright party flash, and download it. No sign-up and no upload: the photo is edited in your browser." },
+  { q: "How do I get the digicam filter on iPhone?",
+    a: "Open this page in Safari, tap Choose a photo and pick one from your library, then save the result to Photos. For live shooting with the look, use the CCD Cam and Y2K Digicam films in the Flashbae app." },
   { q: "What is the digicam look?",
     a: "It's the look of the compact digital cameras of the early 2000s: a hard direct flash, bright faces against a darker background, cool and slightly over-sharp colour, and highlights that blow out to white." },
   { q: "Is there a free digicam filter?",
@@ -47,13 +51,23 @@ export default function DigicamFilter() {
       <Crumbs trail={[{ name: "Digicam & Y2K flash", path: PATH }]} />
 
       <header className="article-head">
-        <h1>Digicam, disposable and Y2K flash, on your iPhone</h1>
+        <h1>Digicam filter, free and online</h1>
         <p className="lede">
-          The hard flash of a 2000s point-and-shoot, the grain of a party disposable: {NAME} gets you there three ways,
-          depending on whether you&apos;re shooting now or fixing a photo you already have.
+          The cool, crisp colour and hard flash of a 2000s point-and-shoot (a &quot;digicam&quot;), on any photo. Pick a photo,
+          choose CCD Cam or Flash Glow, add the date if you like, and download. It runs in your browser; nothing is uploaded.
+        </p>
+      </header>
+
+      <DateStamp filmId="ccd" stamp={false} />
+
+      <section className="section-tight" aria-labelledby="iphone-title">
+        <h2 id="iphone-title">Digicam, disposable and Y2K flash, on your iPhone</h2>
+        <p className="lede">
+          Want the look while you shoot? {NAME} gets you there three ways, depending on whether you&apos;re shooting now or
+          fixing a photo you already have.
         </p>
         <AppStoreButton href={APP_STORE_URL} />
-      </header>
+      </section>
 
       <section className="section-tight" aria-labelledby="ai-title">
         <h2 id="ai-title">AI flash looks</h2>

@@ -26,10 +26,11 @@ const filmed = new WeakMap<Source, Map<string, HTMLCanvasElement>>();
  * One photo, a digicam colour grade and the orange date stamp of a 2000s camera. The photo is opened,
  * graded and saved on the visitor's device.
  */
-export default function DateStamp() {
+export default function DateStamp({ filmId = "ccd", stamp = true }: { filmId?: string; stamp?: boolean } = {}) {
   const [photo, setPhoto] = useState<Source | null>(null);
   const [name, setName] = useState("photo");
-  const [film, setFilm] = useState<WebFilm>(WEB_FILMS.find((f) => f.id === "ccd")!);
+  const [film, setFilm] = useState<WebFilm>(WEB_FILMS.find((f) => f.id === filmId) ?? WEB_FILMS.find((f) => f.id === "ccd")!);
+  const [stampOn, setStampOn] = useState(stamp);
   const [day, setDay] = useState(isoDay(new Date()));
   const [fromPhoto, setFromPhoto] = useState(false);
   const [format, setFormat] = useState<StampFormat>("ymd");
@@ -80,13 +81,13 @@ export default function DateStamp() {
       const ctx = c.getContext("2d")!;
       ctx.drawImage(graded, 0, 0);
       const [y, m, d] = day.split("-").map(Number);
-      drawDateStamp(ctx, c.width, c.height, { text: stampText(new Date(y, m - 1, d), format), color, corner, size });
+      if (stampOn) drawDateStamp(ctx, c.width, c.height, { text: stampText(new Date(y, m - 1, d), format), color, corner, size });
       setBusy(false);
     }, 30);
     return () => { cancelled = true; window.clearTimeout(id); };
-  }, [photo, film, day, format, color, corner, size]);
+  }, [photo, film, day, format, color, corner, size, stampOn]);
 
-  const fileName = () => `${name}-date-stamp.jpg`;
+  const fileName = () => `${name}-${stampOn ? "date-stamp" : film.id}.jpg`;
   const blob = () => new Promise<Blob>((res, rej) => out.current?.toBlob((b) => (b ? res(b) : rej()), "image/jpeg", 0.92));
 
   async function download() {
@@ -114,7 +115,7 @@ export default function DateStamp() {
           onDragLeave={() => setDrag(false)}
           onDrop={(e) => { e.preventDefault(); setDrag(false); open(e.dataTransfer.files[0]); }}
         >
-          <span className="stamp-demo" aria-hidden="true">&apos;26 10 6</span>
+          {stamp && <span className="stamp-demo" aria-hidden="true">&apos;26 10 6</span>}
           <button type="button" className="btn btn-store" onClick={() => input.current?.click()} disabled={busy}>
             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z" /></svg>
             {busy ? "Opening…" : "Choose a photo"}
@@ -126,7 +127,7 @@ export default function DateStamp() {
         <div className="studio">
           <div className="studio-preview">
             <div className="studio-photo" aria-busy={busy}>
-              <canvas ref={out} className="studio-canvas" role="img" aria-label={`Your photo with a date stamp, in the ${film.title} film`} />
+              <canvas ref={out} className="studio-canvas" role="img" aria-label={`Your photo${stampOn ? " with a date stamp" : ""}, in the ${film.title} film`} />
               {busy && <span className="studio-developing">Developing…</span>}
             </div>
           </div>
@@ -140,6 +141,15 @@ export default function DateStamp() {
               </div>
             </fieldset>
 
+            <fieldset className="field">
+              <legend>Date stamp</legend>
+              <div className="opts" role="radiogroup" aria-label="Date stamp">
+                <button type="button" role="radio" aria-checked={stampOn} className="opt" onClick={() => setStampOn(true)}>On</button>
+                <button type="button" role="radio" aria-checked={!stampOn} className="opt" onClick={() => setStampOn(false)}>Off</button>
+              </div>
+            </fieldset>
+
+            {stampOn && <>
             <div className="field">
               <label htmlFor="stamp-day">Date</label>
               <input id="stamp-day" type="date" className="input" value={day} onChange={(e) => { if (e.target.value) { setDay(e.target.value); setFromPhoto(false); } }} />
@@ -179,6 +189,7 @@ export default function DateStamp() {
               <input id="stamp-size" type="range" className="range" min={0.03} max={0.09} step={0.005} value={size}
                      onChange={(e) => setSize(Number(e.target.value))} />
             </div>
+            </>}
 
             <div className="studio-actions">
               <button type="button" className="btn btn-store" onClick={download} disabled={busy}>

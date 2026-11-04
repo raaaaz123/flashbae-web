@@ -35,6 +35,8 @@ body:has(.lp) { background: #faf8f6; }
   line-height: 1.02;
 }
 .lp h1 { font-size: clamp(2.6rem, 6.6vw, 5.4rem); }
+/* The search phrase the page is about, set small above the headline so the h1 carries it without changing the look. */
+.lp-h1-kicker { display: block; margin-bottom: 0.35em; font-size: 0.26em; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
 .lp h2 { font-size: clamp(2rem, 4.4vw, 3.5rem); }
 .lp h3 { font-size: 1.2rem; letter-spacing: -0.02em; line-height: 1.2; }
 .lp em {

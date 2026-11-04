@@ -23,8 +23,8 @@ function cameraError(e: unknown) {
  * The web photo booth: the app's booth in miniature. A pose prompt, a 3-2-1 countdown and a white
  * screen flash for every frame, then the strip editor. The camera stream never leaves the page.
  */
-export default function OnlineBooth() {
-  const [layout, setLayout] = useState<Layout>(LAYOUTS[0]);
+export default function OnlineBooth({ layoutId, filmId }: { layoutId?: string; filmId?: string } = {}) {
+  const [layout, setLayout] = useState<Layout>(LAYOUTS.find((l) => l.id === layoutId) ?? LAYOUTS[0]);
   const [phase, setPhase] = useState<Phase>("setup");
   const [error, setError] = useState<string | null>(null);
   const [useFlash, setUseFlash] = useState(true);
@@ -140,7 +140,7 @@ export default function OnlineBooth() {
   if (phase === "done") {
     return (
       <div ref={root} className="tool">
-        <StripStudio layout={layout} photos={shots} restartLabel="Retake the strip" onRestart={start} />
+        <StripStudio layout={layout} photos={shots} restartLabel="Retake the strip" onRestart={start} initialFilm={filmId} />
       </div>
     );
   }

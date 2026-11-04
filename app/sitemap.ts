@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { GUIDES } from "@/lib/guides";
+import { LANDINGS } from "@/lib/landings";
 import { HOME_ALTERNATES } from "@/lib/i18n";
 import { LOOKS, LOOKS_UPDATED } from "@/lib/looks";
 import { SITE_URL } from "@/lib/site";
@@ -17,11 +18,11 @@ const PAGES = [
   { path: "/free-tools/", updated: "2026-10-28", priority: 0.8 },
   { path: "/date-stamp-photo/", updated: "2026-10-06", priority: 0.9 },
   { path: "/photo-strip-templates/", updated: "2026-10-06", priority: 0.9 },
-  { path: "/online-photo-booth/", updated: "2026-10-06", priority: 0.9 },
+  { path: "/online-photo-booth/", updated: "2026-11-04", priority: 0.9 },
   { path: "/photo-strip-maker/", updated: "2026-10-06", priority: 0.9 },
   { path: "/photo-booth-app/", updated: "2026-10-06", priority: 0.9 },
   { path: "/long-distance-photo-booth/", updated: "2026-10-06", priority: 0.9 },
-  { path: "/digicam-filter/", updated: "2026-10-06", priority: 0.8 },
+  { path: "/digicam-filter/", updated: "2026-11-04", priority: 0.9 },
   { path: "/films/", updated: "2026-10-06", priority: 0.7 },
   { path: "/guides/", updated: "2026-10-06", priority: 0.6 },
   { path: "/delete-account/", updated: "2026-10-29", priority: 0.3 },
@@ -34,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages: homeLanguages },
     })),
     { url: abs("/looks/"), lastModified: LOOKS_UPDATED, changeFrequency: "weekly", priority: 0.8 },
+    ...LANDINGS.map((l) => ({ url: abs(`/${l.slug}/`), lastModified: l.updated, changeFrequency: "monthly" as const, priority: 0.9 })),
     ...PAGES.map((p) => ({ url: abs(p.path), lastModified: p.updated, changeFrequency: "monthly" as const, priority: p.priority })),
     ...GUIDES.map((g) => ({ url: abs(`/guides/${g.slug}/`), lastModified: g.updated, changeFrequency: "monthly" as const, priority: 0.6 })),
     ...LOOKS.map((l) => ({ url: abs(`/looks/${l.slug}/`), lastModified: l.added, changeFrequency: "monthly" as const, priority: 0.6 })),

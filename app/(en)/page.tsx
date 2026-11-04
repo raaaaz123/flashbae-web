@@ -73,6 +73,7 @@ export default function Home() {
         <div className="lp-hero-copy">
           <p className="lp-badge"><span className="lp-badge-dot" />{LOOKS.length} AI looks · free to try</p>
           <h1 id="hero-title">
+            <span className="lp-h1-kicker">AI photo booth</span>
             Your selfie, <em>re-shot</em> by AI
           </h1>
           <p className="lp-lede">
