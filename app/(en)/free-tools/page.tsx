@@ -5,18 +5,19 @@ import JsonLd from "@/components/JsonLd";
 import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 import { LANDINGS } from "@/lib/landings";
 import { TOOLS } from "@/lib/tools";
+import { AI_TOOLS } from "@/lib/aiTools";
 
 const PATH = "/free-tools/";
 const DESCRIPTION =
-  "Free photo booth tools and games that run in your browser: an online photo booth, a photo strip maker, a digicam date stamp, " +
-  "a pose generator, an aesthetic quiz and printable strip templates. No sign-up; nothing is uploaded.";
+  "Free AI photo tools (background changer, object remover, old photo restorer, headshots, hairstyles) and photo booth tools " +
+  "that run in your browser: an online photo booth, a photo strip maker, a digicam date stamp and printable strip templates.";
 
 /** The search-result snippet: under 155 characters, so it isn't cut. */
 const META =
-  "Free photo booth tools in your browser: online photo booth, photo strip maker, digicam date stamp, pose generator and strip templates. No sign-up.";
+  "Free AI photo tools and photo booth tools: background changer, object remover, photo restorer, AI headshots, online photo booth and strip maker.";
 
 export const metadata: Metadata = {
-  title: seoTitle("Free photo booth tools and games"),
+  title: seoTitle("Free AI photo tools and photo booth tools"),
   description: META,
   alternates: { canonical: PATH },
   openGraph: { title: `Free photo booth tools · ${NAME}`, description: DESCRIPTION, url: PATH },
@@ -34,7 +35,7 @@ export default function FreeTools() {
             {
               "@type": "ItemList",
               name: `${NAME} free tools`,
-              itemListElement: [...TOOLS.map((t) => ({ name: t.title, href: t.href })), ...LANDINGS.map((l) => ({ name: l.name, href: `/${l.slug}/` }))]
+              itemListElement: [...AI_TOOLS.map((t) => ({ name: t.name, href: `/${t.slug}/` })), ...TOOLS.map((t) => ({ name: t.title, href: t.href })), ...LANDINGS.map((l) => ({ name: l.name, href: `/${l.slug}/` }))]
                 .map((t, i) => ({ "@type": "ListItem", position: i + 1, name: t.name, url: `${SITE_URL}${t.href}` })),
             },
           ],
@@ -43,12 +44,32 @@ export default function FreeTools() {
       <header className="sp-head">
         <div className="sp-glow" aria-hidden="true" />
         <Crumbs trail={[{ name: "Free tools", path: PATH }]} />
-        <p className="sp-badge">Free · no sign-up · runs in your browser</p>
-        <h1>Free photo booth <em>tools</em></h1>
+        <p className="sp-badge">AI tools · photo booth tools · free</p>
+        <h1>Free AI photo <em>tools</em></h1>
         <p className="lede">{DESCRIPTION}</p>
       </header>
+      <section className="section-tight" aria-labelledby="ai-title">
+        <div className="sp-section-head">
+          <div>
+            <h2 id="ai-title">AI photo tools</h2>
+            <p>Change a background, remove people, restore an old photo, try a haircut. 5 free photos when you sign in with Google.</p>
+          </div>
+        </div>
+        <ul className="cards cards-row">
+          {AI_TOOLS.map((t) => (
+            <li key={t.slug}>
+              <a className="card card-media" href={`/${t.slug}/`}>
+                <span className="card-art" aria-hidden="true"><span className="card-art-icon">{t.icon}</span><span className="card-art-tag">✨ AI</span></span>
+                <h3>{t.name}</h3>
+                <p>{t.lede}</p>
+                <span className="card-more">Open it</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
       <section className="section-tight" aria-labelledby="tools-title">
-        <h2 id="tools-title" className="sr-only">Tools</h2>
+        <div className="sp-section-head"><h2 id="tools-title">Photo booth tools</h2></div>
         <ul className="cards cards-row">
           {TOOLS.map((t) => (
             <li key={t.href}>

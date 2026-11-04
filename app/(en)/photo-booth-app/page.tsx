@@ -52,7 +52,7 @@ export default function PhotoBoothApp() {
   const free = FILMS.filter((f) => f.free).map((f) => f.title);
 
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd data={{ "@context": "https://schema.org", "@graph": [crumbSchema([{ name: TITLE, path: PATH }]), faqSchema(FAQ)] }} />
       <Crumbs trail={[{ name: "Photo booth app", path: PATH }]} />
 

@@ -4,6 +4,7 @@ import { LEGAL } from "@/lib/site";
 import { LOOKS } from "@/lib/looks";
 import { LANDINGS } from "@/lib/landings";
 import { TOOLS } from "@/lib/tools";
+import { AI_TOOLS } from "@/lib/aiTools";
 
 /** The pages every English page links to, so crawlers reach them from anywhere on the site. */
 export const EXPLORE = [
@@ -41,6 +42,12 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
           <h2>Free tools</h2>
           {TOOLS.map((t) => <a key={t.href} href={t.href}>{t.title}</a>)}
           {LANDINGS.map((l) => <a key={l.slug} href={`/${l.slug}/`}>{l.name}</a>)}
+        </nav>
+      )}
+      {en && (
+        <nav aria-label="AI photo tools" className="footer-col">
+          <h2>AI photo tools</h2>
+          {AI_TOOLS.map((t) => <a key={t.slug} href={`/${t.slug}/`}>{t.name}</a>)}
         </nav>
       )}
       {en && (

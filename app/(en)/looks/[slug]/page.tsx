@@ -53,7 +53,7 @@ export default async function LookPage({ params }: Props) {
   const trail = [{ name: "Looks", path: "/looks/" }, { name: l.title, path: `/looks/${l.slug}/` }];
 
   return (
-    <div className="page">
+    <div className="page sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",

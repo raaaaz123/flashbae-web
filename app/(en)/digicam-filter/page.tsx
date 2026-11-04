@@ -46,7 +46,7 @@ export default function DigicamFilter() {
   const looks = FLASH_LOOKS.map(lookBySlug).filter((l): l is Look => !!l);
 
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd data={{ "@context": "https://schema.org", "@graph": [crumbSchema([{ name: "Digicam & Y2K flash", path: PATH }]), faqSchema(FAQ)] }} />
       <Crumbs trail={[{ name: "Digicam & Y2K flash", path: PATH }]} />
 

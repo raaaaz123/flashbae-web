@@ -1,5 +1,6 @@
 import { FILM_GROUPS, FILMS } from "@/lib/films";
 import { GUIDES } from "@/lib/guides";
+import { AI_TOOLS } from "@/lib/aiTools";
 import { LANDINGS } from "@/lib/landings";
 import { LOOKS } from "@/lib/looks";
 import { APP_STORE_URL, BOOTH, DESCRIPTION, FAQ, LEGAL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
@@ -29,6 +30,9 @@ ${NAME} is an iPhone and iPad app (iOS 17+) in ${BOOTH.languages} languages. Dow
 - [AI photo generator](${SITE_URL}/ai-photo-generator/): re-shoot a selfie in an AI look in the browser; 5 free photos with Google sign-in.
 - [Printable photo strip templates](${SITE_URL}/photo-strip-templates/): free 2×6 strips and 4×6 print sheets at 300 dpi with custom text, or a transparent overlay for photo booth software.
 ${LANDINGS.map((l) => `- [${l.name}](${SITE_URL}/${l.slug}/): ${l.description}`).join("\n")}
+
+## AI photo tools (5 free photos with Google sign-in, then one credit each)
+${AI_TOOLS.map((t) => `- [${t.name}](${SITE_URL}/${t.slug}/): ${t.description}`).join("\n")}
 
 ## Pages
 - [Photo booth app for iPhone](${SITE_URL}/photo-booth-app/): how the booth works, layouts, films, saving and printing.

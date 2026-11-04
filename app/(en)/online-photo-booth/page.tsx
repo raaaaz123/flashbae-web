@@ -48,7 +48,7 @@ const FAQ = [
 
 export default function OnlinePhotoBooth() {
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",

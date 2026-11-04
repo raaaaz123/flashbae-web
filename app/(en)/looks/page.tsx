@@ -14,7 +14,7 @@ export default function LooksPage() {
   const effects = LOOKS.filter((l) => l.kind === "effect");
   const templates = LOOKS.filter((l) => l.kind === "template");
   return (
-    <div className="page">
+    <div className="page sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",

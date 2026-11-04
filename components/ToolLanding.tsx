@@ -31,7 +31,7 @@ export default function ToolLanding({ slug }: { slug: string }) {
     ? ["Allow the camera", "Strike a pose for each frame as the booth counts down 3, 2, 1 and flashes", "Pick a film, a frame and a caption", "Download your strip"]
     : ["Choose a photo from your device", "Pick a film and, if you like, the date stamp", "Download the photo"];
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",

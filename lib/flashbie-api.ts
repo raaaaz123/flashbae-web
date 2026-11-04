@@ -286,6 +286,50 @@ export async function generateLookPhoto(options: GenerateOptions): Promise<Gener
   return result;
 }
 
+/** Turns a failed render response into the short error codes the studios show messages for. */
+async function renderError(res: Response): Promise<Error> {
+  let detail = "";
+  try {
+    const errJson = await res.json();
+    detail = errJson.detail || errJson.message || "";
+  } catch {
+    detail = "";
+  }
+  if (res.status === 402 || detail === "no_credits" || detail === "no_plan") return new Error("no_credits");
+  if (res.status === 413 || detail === "image_too_large") return new Error("image_too_large");
+  if (res.status === 503 || detail === "ai_unavailable") return new Error("ai_unavailable");
+  if (detail === "not_allowed") return new Error("not_allowed");
+  if (detail === "could_not_render" || res.status === 422) return new Error("could_not_render");
+  return new Error(typeof detail === "string" && detail ? detail : `Generation failed (${res.status})`);
+}
+
+/**
+ * One of the AI photo tools (background changer, object remover...): the server holds the prompt, the page only
+ * names the preset (and, for the remover, a short note of what to take out).
+ */
+export async function runTool(tool: string, photo: Blob, option?: string, custom?: string): Promise<GenerateResponse> {
+  let { token } = await ensureAuth();
+  const form = new FormData();
+  form.append("photo", await uploadJpeg(photo), "photo.jpg");
+  if (option) form.append("option", option);
+  if (custom?.trim()) form.append("custom", custom.trim().slice(0, 120));
+  const send = () => fetch(`${API_BASE}/tools/${encodeURIComponent(tool)}`, {
+    method: "POST", headers: { Authorization: `Bearer ${token}` }, body: form,
+  });
+  let res = await send();
+  if (res.status === 401) {
+    token = (await ensureAuth(true)).token;
+    res = await send();
+  }
+  if (!res.ok) throw await renderError(res);
+  const result: GenerateResponse = await res.json();
+  if (typeof window !== "undefined" && result.me) {
+    localStorage.setItem(STORAGE_KEYS.me, JSON.stringify(result.me));
+    announce(result.me);
+  }
+  return result;
+}
+
 /**
  * The signed-in account's generated photos, newest first (60 per page, the same list
  * the app shows). Pass the oldest `created_at` you have to get the next page.

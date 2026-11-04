@@ -50,7 +50,7 @@ const FAQ = [
 export default function LongDistanceBooth() {
   const img = (slug: string, side: "before" | "after") => lookBySlug(slug)?.[side] ?? "";
   return (
-    <div className="article">
+    <div className="article sp">
       <JsonLd
         data={{
           "@context": "https://schema.org",

@@ -1,0 +1,104 @@
+/* The AI tool studio: photo on the left, presets and the button on the right; stacked on phones.
+   Sits inside a .sp page, so it uses the studio palette (--ink, --pink, --lilac...). */
+
+.ait {
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: clamp(16px, 3vw, 32px); align-items: start;
+  margin-top: 8px; padding: clamp(12px, 2.4vw, 24px); border-radius: 32px; background: #fff;
+  box-shadow: inset 0 0 0 1px var(--hair), var(--soft-shadow); font-family: var(--sans); color: var(--ink);
+}
+
+/* ---------- the photo ---------- */
+
+.ait-stage {
+  position: relative; display: grid; place-items: center; min-height: clamp(280px, 42vw, 520px); overflow: hidden;
+  border-radius: 24px; background: linear-gradient(150deg, #fff0f5, #f3efff 55%, #fff5ea);
+  transition: box-shadow 0.2s ease;
+}
+.ait-stage.is-over { box-shadow: inset 0 0 0 2px var(--pink); }
+.ait-stage.has-photo { background: #f5f1f4; }
+.ait-stage img { width: 100%; height: 100%; max-height: 70vh; object-fit: contain; transition: filter 0.4s ease; }
+.ait-stage img.is-working { filter: saturate(0.6) brightness(0.92); }
+.ait-drop {
+  display: grid; justify-items: center; gap: 8px; width: 100%; height: 100%; min-height: inherit; padding: 24px;
+  border: 0; background: none; cursor: pointer; font: inherit; color: var(--ink-2); text-align: center;
+}
+.ait-drop strong { color: var(--ink); font-size: 1.15rem; }
+.ait-drop span:last-child { font-size: 0.9rem; }
+.ait-drop-icon {
+  display: grid; place-items: center; width: 64px; height: 64px; margin-bottom: 6px; border-radius: 20px; background: #fff;
+  box-shadow: var(--soft-shadow); font-size: 1.8rem; color: var(--ink); transition: transform 0.4s var(--ease);
+}
+.ait-drop:hover .ait-drop-icon { transform: rotate(-6deg) scale(1.06); }
+.ait-change, .ait-compare {
+  position: absolute; bottom: 14px; min-height: 38px; padding: 0 16px; border: 0; border-radius: 999px; cursor: pointer;
+  background: rgba(255, 255, 255, 0.92); box-shadow: var(--soft-shadow); font: 600 0.86rem var(--sans); color: var(--ink);
+  -webkit-user-select: none; user-select: none; touch-action: none;
+}
+.ait-change { right: 14px; }
+.ait-compare { left: 14px; }
+.ait-working { position: absolute; inset: 0; display: grid; place-items: end center; padding-bottom: 22px; pointer-events: none; }
+.ait-working-text { padding: 8px 14px; border-radius: 999px; background: rgba(23, 18, 26, 0.78); color: #fff; font-size: 0.86rem; font-weight: 600; }
+.ait-scan {
+  position: absolute; left: 0; right: 0; top: 0; height: 30%;
+  background: linear-gradient(180deg, transparent, rgba(255, 111, 155, 0.28), rgba(169, 139, 255, 0.32), transparent);
+  animation: ait-scan 1.8s var(--ease) infinite alternate;
+}
+@keyframes ait-scan { from { transform: translateY(-40%); } to { transform: translateY(280%); } }
+@media (prefers-reduced-motion: reduce) { .ait-scan { animation: none; opacity: 0.4; } }
+
+/* ---------- the panel ---------- */
+
+.ait-panel { display: grid; gap: 18px; align-content: start; padding: clamp(4px, 1vw, 12px) 0; }
+.ait-options { display: grid; gap: 12px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.ait-options legend { margin-bottom: 12px; padding: 0; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.ait-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ait-chip {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 16px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--tint); box-shadow: inset 0 0 0 1px transparent; font: 500 0.94rem var(--sans); color: var(--ink);
+  transition: background-color 0.2s ease, transform 0.3s var(--ease), box-shadow 0.2s ease;
+}
+.ait-chip:hover { transform: translateY(-1px); box-shadow: inset 0 0 0 1px rgba(23, 18, 26, 0.2); }
+.ait-chip[aria-checked="true"] { background: var(--ink); color: #fff; }
+.ait-options:disabled .ait-chip { opacity: 0.6; cursor: default; }
+.ait-custom { display: grid; gap: 8px; margin-top: 4px; font-size: 0.9rem; color: var(--ink-2); }
+.ait-custom input {
+  min-height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: var(--tint); font: 500 1rem var(--sans); color: var(--ink);
+  box-shadow: inset 0 0 0 1px transparent; transition: box-shadow 0.2s ease;
+}
+.ait-custom input:focus { outline: none; box-shadow: inset 0 0 0 2px var(--ink); }
+.ait-error { padding: 12px 16px; border-radius: 16px; background: #fff4f7; box-shadow: inset 0 0 0 1px rgba(255, 79, 134, 0.3); color: #b4233a; font-size: 0.92rem; }
+.ait-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.ait-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 54px; padding: 0 26px; border: 0; border-radius: 999px;
+  cursor: pointer; font: 600 1rem/1 var(--sans); transition: transform 0.35s var(--ease), background-color 0.2s ease;
+}
+.ait-btn:hover:not(:disabled) { transform: translateY(-2px); }
+.ait-btn:disabled { opacity: 0.6; cursor: default; }
+.ait-btn-wide { flex: 1; }
+.ait-btn-dark {
+  color: #fff; border: 1.5px solid transparent;
+  background: linear-gradient(#17121a, #17121a) padding-box, linear-gradient(120deg, #ff6f9b, #a98bff, #ffc48a) border-box;
+  box-shadow: 0 12px 28px -14px rgba(169, 139, 255, 0.9);
+}
+.ait-btn-light { background: var(--tint); color: var(--ink); }
+.ait-meta { font-size: 0.85rem; color: var(--ink-3); }
+.ait-meta a { color: var(--ink-2); }
+
+@media (max-width: 820px) {
+  .ait { grid-template-columns: 1fr; border-radius: 26px; }
+  .ait-stage { min-height: 260px; border-radius: 20px; }
+  .ait-stage img { max-height: 60vh; }
+  .ait-btn-wide { width: 100%; }
+  .ait-chip { min-height: 40px; padding: 0 14px; font-size: 0.9rem; }
+}
+
+/* ---------- the page around it ---------- */
+
+.ait-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.ait-steps li { display: grid; gap: 8px; align-content: start; padding: 22px; border-radius: 24px; background: #fff; box-shadow: inset 0 0 0 1px var(--hair); }
+.ait-steps h3 { font-size: 1.12rem; }
+.ait-steps p { color: var(--ink-2); font-size: 0.95rem; }
+.ait-step-n {
+  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--lilac)); color: #fff; font-weight: 700; font-size: 0.9rem;
+}

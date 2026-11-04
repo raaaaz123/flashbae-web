@@ -188,3 +188,42 @@ body:has(.sp) { background: #faf8f6; }
   .sp-section-head { flex-direction: column; align-items: start; }
   .sp .article-body .prose { padding: 22px 18px; border-radius: 22px; }
 }
+
+/* ---------- the free tools on the studio canvas ----------
+   The tool widgets (strip maker, online booth, date stamp, templates, quiz, poses) are styled with the old palette
+   variables. Inside .sp those variables map onto the studio palette, so every widget follows without its own rules. */
+
+.sp {
+  --blush: #f3eff2;
+  --blush-deep: #ebe4ea;
+  --milk: #fff;
+  --cherry: #ff4f86;
+  --strawberry: #ffc2d4;
+  --butter: #ffe8cc;
+  --lilac: #efe9ff;
+  --cocoa: #17121a;
+  --cocoa-soft: rgba(23, 18, 26, 0.62);
+  --line: rgba(23, 18, 26, 0.1);
+  --shadow: 0 2px 4px rgba(23, 18, 26, 0.05), 0 24px 48px -16px rgba(23, 18, 26, 0.24);
+  --display: var(--font-lp), -apple-system, "Segoe UI", sans-serif;
+  --body: var(--font-lp), -apple-system, "Segoe UI", sans-serif;
+}
+.sp .article-head h1 { font-size: clamp(2.3rem, 5.4vw, 4rem); letter-spacing: -0.045em; line-height: 1.02; }
+.sp .article-head .lede { color: var(--ink-2); }
+
+/* The tool card: white on the canvas, a hairline and a soft lift instead of the pink glow. */
+.sp .tool { background: #fff; box-shadow: inset 0 0 0 1px var(--hair), var(--soft-shadow); }
+.sp :is(.studio-paper, .studio-photo, .template-paper) { filter: drop-shadow(0 18px 28px rgba(23, 18, 26, 0.22)); }
+
+/* Choices: selected reads as solid ink, like the AI studio's filters. */
+.sp .opt[aria-checked="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.sp :is(.layout-opt, .template-opt)[aria-checked="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink) inset; }
+.sp .layout-opt[aria-checked="true"] .mini span { background: var(--pink); }
+.sp .swatch[aria-checked="true"] { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--ink); }
+.sp .opt-more { color: var(--ink); }
+.sp .slot-empty span { color: var(--ink-3); }
+.sp .drop-over { border-color: var(--pink); }
+.sp .pitch { background: linear-gradient(150deg, #fff0f5, #f3efff 55%, #fff5ea); }
+.sp .pitch-kicker { color: var(--ink); }
+.sp .tool-error { background: #fff4f7; border-color: rgba(255, 79, 134, 0.35); }
+.sp .tool-error a, .sp .text-link { color: var(--ink); text-decoration: underline; text-decoration-color: rgba(255, 111, 155, 0.6); text-decoration-thickness: 2px; }
