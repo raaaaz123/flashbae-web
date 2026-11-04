@@ -22,6 +22,14 @@ export const DESCRIPTION =
   "Flashbae is an AI photo booth for iPhone. Shoot four-frame photo strips with 33 film looks, booth together with a friend over live video, " +
   "and let AI re-shoot your selfie in digicam flash, golden hour or Y2K. Free to download.";
 
+/**
+ * A page title for search results. Google cuts titles at about 60 characters, so the " · Flashbae" suffix from the
+ * layout template is dropped when it would push the keywords past that.
+ */
+export function seoTitle(title: string): string | { absolute: string } {
+  return title.length + ` · ${NAME}`.length > 60 ? { absolute: title } : title;
+}
+
 /** What search results show under the title (kept under ~160 characters so it isn't cut). */
 export const META_DESCRIPTION =
   "AI photo booth for iPhone: photo strips with 33 film looks, booths with friends over live video, and AI looks like digicam flash and golden hour. Free.";

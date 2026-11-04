@@ -9,7 +9,7 @@ import DateStamp from "@/components/booth/DateStamp";
 import { FILMS } from "@/lib/films";
 import { lookBySlug } from "@/lib/looks";
 import type { Look } from "@/lib/looks";
-import { APP_STORE_URL, NAME } from "@/lib/site";
+import { APP_STORE_URL, NAME, seoTitle } from "@/lib/site";
 
 const PATH = "/digicam-filter/";
 const TITLE = "Digicam filter online, free: Y2K digital camera effect";
@@ -17,7 +17,7 @@ const DESCRIPTION =
   "Free digicam filter online: give any photo the cool CCD colour, flash and date stamp of a 2000s digital camera. No app, no sign-up, nothing uploaded.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: seoTitle(TITLE),
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },

@@ -10,7 +10,7 @@ import Sticker from "@/components/Sticker";
 import { CHROME } from "@/lib/i18n";
 import { HOMES } from "@/lib/locales";
 import { HERO_LOOKS, LOOKS, lookBySlug } from "@/lib/looks";
-import { APP_STORE_URL, NAME, SITE_URL, STORE_NAME } from "@/lib/site";
+import { APP_STORE_URL, NAME, SITE_URL, STORE_NAME, APP_STORE_ID } from "@/lib/site";
 
 /** The Japanese or Korean home page: the English home's story, told from the localized App Store copy. */
 export default function LocalHome({ locale }: { locale: "ja" | "ko" }) {
@@ -36,9 +36,9 @@ export default function LocalHome({ locale }: { locale: "ja" | "ko" }) {
               inLanguage: locale,
               operatingSystem: "iOS 17 or later",
               applicationCategory: "PhotographyApplication",
-              downloadUrl: APP_STORE_URL,
               image: `${SITE_URL}/og.jpg`,
-              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+              // Only once the App Store listing exists (see the English home page).
+              ...(APP_STORE_ID ? { downloadUrl: APP_STORE_URL, offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}),
             },
             { "@type": "WebPage", "@id": `${SITE_URL}/${locale}/`, name: t.title, inLanguage: locale, about: { "@id": `${SITE_URL}/#app` } },
             faqSchema(t.faq.items),

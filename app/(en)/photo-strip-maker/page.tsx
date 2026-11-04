@@ -5,7 +5,7 @@ import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import StripMaker from "@/components/booth/StripMaker";
 import { WEB_FILMS } from "@/lib/booth";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/photo-strip-maker/";
 const TITLE = "Free photo strip maker";
@@ -13,11 +13,15 @@ const DESCRIPTION =
   "Turn three or four of your photos into a photo booth strip, free. Pick a layout, a film and a frame colour, add a caption and the date, " +
   "and download it. Works on your phone; nothing is uploaded.";
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  "Turn three or four of your photos into a photo booth strip, free: pick a layout, film and frame, add a caption and date, download. Nothing is uploaded.";
+
 export const metadata: Metadata = {
-  title: `${TITLE}: make a photo booth strip from your photos`,
-  description: DESCRIPTION,
+  title: seoTitle("Free photo strip maker: turn your photos into a booth strip"),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const STEPS = [

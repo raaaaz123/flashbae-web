@@ -229,7 +229,8 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
   const useSamplePhoto = async () => {
     if (!look) return;
     try {
-      const blob = await (await fetch(look.before)).blob();
+      // The full-size JPEG, not the 600 px WebP the page shows: the model gets the sharpest face.
+      const blob = await (await fetch(look.before.replace(/\.webp$/, ".jpg"))).blob();
       handleFile1(new File([blob], `${look.id}-sample.jpg`, { type: "image/jpeg" }));
     } catch {
       setError("Could not load the sample photo.");

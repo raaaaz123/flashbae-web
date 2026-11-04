@@ -4,7 +4,7 @@ import Faq, { faqSchema } from "@/components/Faq";
 import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import TemplateMaker from "@/components/booth/TemplateMaker";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/photo-strip-templates/";
 const TITLE = "Free printable photo strip templates";
@@ -12,11 +12,15 @@ const DESCRIPTION =
   "Free photo booth strip templates: 2×6 strips and 4×6 print sheets at 300 dpi, with your names and date. " +
   "Print them, or download a transparent overlay for photo booth software. For weddings, parties and DIY booths.";
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  "Free photo booth strip templates: 2×6 strips and 4×6 print sheets at 300 dpi with your names and date, plus transparent overlays for booth software.";
+
 export const metadata: Metadata = {
-  title: `${TITLE} (2×6 and 4×6)`,
-  description: DESCRIPTION,
+  title: seoTitle(`${TITLE} (2×6 and 4×6)`),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const FAQ = [

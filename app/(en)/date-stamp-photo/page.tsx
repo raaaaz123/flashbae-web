@@ -4,7 +4,7 @@ import Faq, { faqSchema } from "@/components/Faq";
 import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import DateStamp from "@/components/booth/DateStamp";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/date-stamp-photo/";
 const TITLE = "Add a date stamp to a photo";
@@ -12,11 +12,15 @@ const DESCRIPTION =
   "Add the orange date stamp of a 2000s digital camera to any photo, free, with a CCD digicam or flash colour grade. " +
   "Uses the date the photo was taken. Works on your phone; nothing is uploaded.";
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  "Add the orange date stamp of a 2000s digital camera to any photo, free, with a digicam colour grade. Works on your phone; nothing is uploaded.";
+
 export const metadata: Metadata = {
-  title: `${TITLE}: free digicam date stamp and filter`,
-  description: DESCRIPTION,
+  title: seoTitle("Add a date stamp to a photo online, free (digicam style)"),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const STEPS = [

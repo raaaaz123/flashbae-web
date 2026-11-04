@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import AIGenerator from "@/components/AIGenerator";
 import Crumbs, { crumbSchema } from "@/components/Crumbs";
 import JsonLd from "@/components/JsonLd";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 import "./generator-page.css";
 
 export const metadata: Metadata = {
-  title: "AI Photo Generator",
+  title: seoTitle("AI photo generator: re-shoot your selfie (digicam, Y2K)"),
   description:
-    "Transform any selfie into digicam flash, golden hour, or aesthetic film with Flashbae AI. Upload your photo, generate in seconds, and download high-resolution photos.",
+    "Turn any selfie into digicam flash, golden hour or film with Flashbae AI. Upload a photo, get your result in seconds and download it in high resolution.",
   alternates: { canonical: "/ai-photo-generator/" },
   openGraph: {
-    title: `AI Photo Generator — ${NAME}`,
-    description: "Re-shoot your selfies in vintage digicam flash, golden hour glow, and Y2K aesthetic with AI. Download instantly.",
+    title: `AI photo generator · ${NAME}`,
+    description: "Re-shoot your selfie in digicam flash, golden hour glow or Y2K with AI, then download it.",
     images: ["/looks/dreamlight-after.jpg"],
   },
 };

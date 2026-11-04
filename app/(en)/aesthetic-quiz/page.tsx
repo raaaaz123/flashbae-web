@@ -9,7 +9,7 @@ import { AESTHETICS } from "@/lib/aesthetics";
 import { FILMS } from "@/lib/films";
 import type { FilmGroup } from "@/lib/films";
 import { lookBySlug } from "@/lib/looks";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/aesthetic-quiz/";
 const TITLE = "What's your photo aesthetic? Quiz";
@@ -17,11 +17,15 @@ const DESCRIPTION =
   "Take the free photo aesthetic quiz: six quick questions to find out if you're Classic Booth, Digicam Flash, Golden Film, " +
   "Soft Dreamy or Cool Cinematic, and which filters and film looks match you.";
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  "Free photo aesthetic quiz: six quick questions to find your style (Classic Booth, Digicam Flash, Golden Film and more) and the filters that match it.";
+
 export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
+  title: seoTitle(TITLE),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const LIST = Object.values(AESTHETICS);

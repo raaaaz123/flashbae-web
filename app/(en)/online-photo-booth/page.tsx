@@ -5,7 +5,7 @@ import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import OnlineBooth from "@/components/booth/OnlineBooth";
 import { WEB_FILMS } from "@/lib/booth";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/online-photo-booth/";
 const TITLE = "Free online photo booth";
@@ -13,11 +13,15 @@ const DESCRIPTION =
   "A free online photo booth that uses your webcam or phone camera: pose prompts, a 3-2-1 countdown and a flash for every frame, " +
   "then download your photo strip. No sign-up, nothing uploaded.";
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  "Free online photo booth for your webcam or phone: pose prompts, a 3-2-1 countdown and a flash, then download your photo strip. No sign-up, no upload.";
+
 export const metadata: Metadata = {
-  title: "Free online photo booth (photobooth online): webcam photo strip",
-  description: DESCRIPTION,
+  title: seoTitle("Free online photo booth (photobooth online), webcam strip"),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const STEPS = [

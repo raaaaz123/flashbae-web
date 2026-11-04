@@ -18,9 +18,9 @@ export const metadata: Metadata = {
 /** The guides, plus the feature pages, which answer the same kinds of questions. */
 /** A photo for each guide's card, from the look closest to its subject. */
 const COVERS: Record<string, string> = {
-  "y2k-flash-photos": "/looks/disposable-flash-after.jpg",
-  "photo-strip-on-iphone": "/looks/face-roll-after.jpg",
-  "photo-booth-pose-ideas": "/looks/cozy-flash-after.jpg",
+  "y2k-flash-photos": "/looks/disposable-flash-after.webp",
+  "photo-strip-on-iphone": "/looks/face-roll-after.webp",
+  "photo-booth-pose-ideas": "/looks/cozy-flash-after.webp",
 };
 
 const FEATURES = [

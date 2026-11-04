@@ -5,7 +5,7 @@ import SiteShell from "@/components/SiteShell";
 // Each page sets its own canonical URL; a canonical here would leak "/" onto every page that forgot one.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${NAME} — ${TAGLINE}`, template: `%s · ${NAME}` },
+  title: { default: `${NAME}: ${TAGLINE}`, template: `%s · ${NAME}` },
   description: META_DESCRIPTION,
   applicationName: NAME,
   keywords: ["photo booth app", "AI photo booth", "AI photo editor", "digicam filter", "vintage film camera", "y2k filter",

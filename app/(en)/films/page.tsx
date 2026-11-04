@@ -4,7 +4,7 @@ import Crumbs, { crumbSchema } from "@/components/Crumbs";
 import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import { FILM_GROUPS, FILMS } from "@/lib/films";
-import { APP_STORE_URL, BOOTH, NAME, SITE_URL } from "@/lib/site";
+import { APP_STORE_URL, BOOTH, NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/films/";
 const TITLE = `All ${BOOTH.films} photo booth film looks`;
@@ -12,11 +12,15 @@ const DESCRIPTION =
   `Every film look in the ${NAME} photo booth: 1930s booth, black and white, CCD digicam flash, light leaks, expired film, ` +
   `dreamy glow and cinema film. ${BOOTH.freeFilms} are free.`;
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  `Every film look in the ${NAME} photo booth: 1930s booth, black and white, digicam flash, light leaks, expired film and cinema film. ${BOOTH.freeFilms} are free.`;
+
 export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
+  title: seoTitle(TITLE),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 export default function Films() {

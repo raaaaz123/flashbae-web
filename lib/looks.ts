@@ -13,6 +13,8 @@ export type Look = {
   people: number;
   before: string;
   after: string;
+  /** The after photo as JPEG, for social previews and structured data (the page itself shows WebP). */
+  afterJpg: string;
   /** YYYY-MM-DD the look first appeared on the site. */
   added: string;
 };
@@ -52,8 +54,10 @@ export const LOOKS: Look[] = raw
     premium: l.premium,
     trending: l.trending || TRENDING_IDS.has(l.id),
     people: l.people ?? 1,
-    before: l.before,
-    after: l.after,
+    // WebP twins sit next to each JPEG in public/looks (scripts/fetch-looks.mjs makes them): about half the bytes.
+    before: l.before.replace(/\.jpg$/, ".webp"),
+    after: l.after.replace(/\.jpg$/, ".webp"),
+    afterJpg: l.after,
     added: l.added,
   }));
 

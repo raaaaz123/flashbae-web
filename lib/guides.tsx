@@ -89,7 +89,7 @@ export const GUIDES: Guide[] = [
     title: "How to make a photo booth strip on iPhone",
     short: "Make a photo strip",
     description:
-      "Make a real four-frame photo booth strip on your iPhone: set up the shot, follow the countdown, choose a film and frame, then save it as a strip, a Story or a print sheet.",
+      "Make a real four-frame photo booth strip on your iPhone: set up the shot, follow the countdown, pick a film and frame, then save a strip or a Story.",
     published: "2026-10-06",
     updated: "2026-10-06",
     steps: [
@@ -152,7 +152,7 @@ export const GUIDES: Guide[] = [
     title: "Photo booth pose ideas for friends, couples and solo strips",
     short: "Photo booth pose ideas",
     description:
-      "Photo booth pose ideas that make a strip tell a story: the twelve prompts the Flashbae booth uses, plus ideas for couples, friends, long-distance strips and posing alone.",
+      "Photo booth pose ideas that make a strip tell a story: twelve prompts from the Flashbae booth, plus ideas for couples, friends and posing alone.",
     published: "2026-10-06",
     updated: "2026-10-28",
     faq: [

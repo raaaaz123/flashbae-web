@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "AI photo looks and filters",
-  description: `All ${LOOKS.length} Flashbae AI looks with before and after photos: digicam flash, golden hour, Y2K camera, night-out templates and more. New looks every week.`,
+  description: `All ${LOOKS.length} Flashbae AI looks with before and after photos: digicam flash, golden hour, Y2K camera, night-out templates and more.`,
   alternates: { canonical: "/looks/" },
 };
 
@@ -45,6 +45,30 @@ export default function LooksPage() {
           <LookPrints looks={group.items} wrap />
         </section>
       ))}
+      <section className="section-tight prose" aria-labelledby="how-looks-work">
+        <h2 id="how-looks-work">How AI looks work</h2>
+        <p>
+          Pick a look and add a selfie. An <strong>effect</strong> keeps your photo as it is and re-shoots the light and colour:
+          a direct digicam flash, golden-hour sun, warm film or a cool Y2K camera. A <strong>template</strong> keeps your face
+          and pose and puts you in a new scene, like a subway platform at night or a neon collage.
+        </p>
+        <p>
+          A result takes about 15 seconds. You can fade it back toward your original with the intensity slider, then save or
+          share it. Try any look in the browser with the <a href="/ai-photo-generator/">AI photo generator</a>, or in the
+          Flashbae app on iPhone.
+        </p>
+        <h3>Is my photo kept?</h3>
+        <p>
+          No. The photo you pick is sent to Google&apos;s Gemini image model only to make your result. The upload isn&apos;t
+          kept, and Google doesn&apos;t train on it.
+        </p>
+        <h3>Want a film look without AI?</h3>
+        <p>
+          The <a href="/free-tools/">free tools</a> run entirely on your device: a <a href="/digicam-filter/">digicam filter</a>,
+          a <a href="/y2k-filter/">Y2K filter</a>, a <a href="/disposable-camera-filter/">disposable camera filter</a> and
+          an <a href="/online-photo-booth/">online photo booth</a>. Nothing is uploaded.
+        </p>
+      </section>
     </div>
   );
 }

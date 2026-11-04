@@ -5,7 +5,7 @@ import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import PoseRoulette from "@/components/booth/PoseRoulette";
 import { CROWDS, POSES } from "@/lib/poses";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/photo-booth-poses/";
 const TITLE = "Photo booth pose generator";
@@ -14,11 +14,15 @@ const DESCRIPTION =
   "Free random photo booth pose generator: spin for a pose or play a four-frame round with a 3-2-1 countdown, " +
   `like a real booth. ${COUNT} poses for solo, couples and friends.`;
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  `Free random photo booth pose generator: spin for a pose or play a four-frame round with a countdown. ${COUNT} poses for solo, couples and friends.`;
+
 export const metadata: Metadata = {
-  title: `${TITLE}: random poses for solo, couples and friends`,
-  description: DESCRIPTION,
+  title: seoTitle("Photo booth pose generator: poses for couples and friends"),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const FAQ = [

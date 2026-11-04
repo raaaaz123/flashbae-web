@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Crumbs, { crumbSchema } from "@/components/Crumbs";
 import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 import { LANDINGS } from "@/lib/landings";
 import { TOOLS } from "@/lib/tools";
 
@@ -11,9 +11,13 @@ const DESCRIPTION =
   "Free photo booth tools and games that run in your browser: an online photo booth, a photo strip maker, a digicam date stamp, " +
   "a pose generator, an aesthetic quiz and printable strip templates. No sign-up; nothing is uploaded.";
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  "Free photo booth tools in your browser: online photo booth, photo strip maker, digicam date stamp, pose generator and strip templates. No sign-up.";
+
 export const metadata: Metadata = {
-  title: "Free photo booth tools and games",
-  description: DESCRIPTION,
+  title: seoTitle("Free photo booth tools and games"),
+  description: META,
   alternates: { canonical: PATH },
   openGraph: { title: `Free photo booth tools · ${NAME}`, description: DESCRIPTION, url: PATH },
 };
@@ -59,7 +63,7 @@ export default function FreeTools() {
           <li>
             <a className="card card-media" href="/ai-photo-generator/">
               <span className="card-art" aria-hidden="true">
-                <img src="/looks/sun-kissed-after.jpg" alt="" loading="lazy" />
+                <img src="/looks/sun-kissed-after.webp" alt="" loading="lazy" />
                 <span className="card-art-tag">✨ AI</span>
               </span>
               <h3>AI photo studio</h3>

@@ -21,17 +21,26 @@ function summary(l: NonNullable<ReturnType<typeof lookBySlug>>) {
   const what = l.kind === "template"
     ? `${l.title} is a ${NAME} AI template: it puts you, from your own selfie, into a new scene.`
     : `${l.title} is a ${NAME} AI photo effect: it re-shoots your own selfie and keeps your scene.`;
-  return `${what} ${l.tagline}`.trim();
+  // Some taglines come from the API wrapped in curly quotes.
+  return `${what} ${l.tagline.replace(/^[“"]|[”"]$/g, "")}`.trim();
+}
+
+/** The search-result snippet: the summary, shortened at a word when it would run past ~155 characters. */
+function snippet(l: NonNullable<ReturnType<typeof lookBySlug>>) {
+  const s = summary(l);
+  if (s.length <= 155) return s;
+  const cut = s.slice(0, 152);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,.;:]$/, "")}...`;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const l = lookBySlug((await params).slug);
   if (!l) return {};
   return {
-    title: `${l.title} — AI ${l.kind === "template" ? "photo template" : "photo filter"}`,
-    description: summary(l),
+    title: `${l.title}: AI ${l.kind === "template" ? "photo template" : "photo filter"}`,
+    description: snippet(l),
     alternates: { canonical: `/looks/${l.slug}/` },
-    openGraph: { title: `${l.title} on ${NAME}`, description: summary(l), images: [l.after] },
+    openGraph: { title: `${l.title} on ${NAME}`, description: snippet(l), images: [l.afterJpg] },
   };
 }
 
@@ -53,7 +62,7 @@ export default async function LookPage({ params }: Props) {
               "@type": "HowTo",
               name: `How to get the ${l.title} look on your photo`,
               description: summary(l),
-              image: `${SITE_URL}${l.after}`,
+              image: `${SITE_URL}${l.afterJpg}`,
               step: [
                 { "@type": "HowToStep", position: 1, text: `Open ${NAME} on your iPhone and pick ${l.title} in Looks.` },
                 { "@type": "HowToStep", position: 2, text: l.kind === "template" ? "Add a clear selfie of each person in the scene." : "Add a selfie from your camera or gallery." },
@@ -65,7 +74,7 @@ export default async function LookPage({ params }: Props) {
               "@id": `${SITE_URL}/looks/${l.slug}/`,
               name: `${l.title} AI ${template ? "photo template" : "photo filter"}`,
               datePublished: l.added,
-              primaryImageOfPage: `${SITE_URL}${l.after}`,
+              primaryImageOfPage: `${SITE_URL}${l.afterJpg}`,
               isPartOf: { "@id": `${SITE_URL}/#site` },
             },
             crumbSchema(trail),

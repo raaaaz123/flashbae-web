@@ -6,7 +6,7 @@ import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import Together from "@/components/Together";
 import { lookBySlug } from "@/lib/looks";
-import { APP_STORE_URL, NAME, SITE_URL } from "@/lib/site";
+import { APP_STORE_URL, NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const PATH = "/long-distance-photo-booth/";
 const TITLE = "Long-distance photo booth for couples and friends";
@@ -14,11 +14,15 @@ const DESCRIPTION =
   `Take photo booth strips together from anywhere. ${NAME} puts you on live video, counts down on both phones at once and ` +
   "flashes at the same moment, so you get one strip with both of you in it. Free on iPhone and iPad.";
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  "Take photo booth strips together from anywhere: live video, a countdown on both phones and one flash, so you get one strip with both of you in it.";
+
 export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
+  title: seoTitle(TITLE),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const STEPS = [

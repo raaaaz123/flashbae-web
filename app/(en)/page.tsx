@@ -18,7 +18,7 @@ const UPLOAD_ICON = (
 );
 
 /** The booth strip on the phone: four frames from the same night. */
-const STRIP = ["soft-flash", "cozy-flash", "sun-kissed", "dreamlight"].map((id) => `/looks/${id}-after.jpg`);
+const STRIP = ["soft-flash", "cozy-flash", "sun-kissed", "dreamlight"].map((id) => `/looks/${id}-after.webp`);
 
 export default function Home() {
   return (
@@ -37,9 +37,11 @@ export default function Home() {
               applicationCategory: "PhotographyApplication",
               applicationSubCategory: "Photo booth",
               inLanguage: ["en", "ja", "de", "fr", "ko", "es", "pt-BR", "it", "zh-Hant", "zh-Hans", "nl", "ar", "tr", "id"],
-              downloadUrl: APP_STORE_URL,
               image: `${SITE_URL}/og.jpg`,
-              offers: { "@type": "Offer", name: "Free download", price: "0", priceCurrency: "USD" },
+              // A download link and a free offer only once the App Store listing exists; until then they point nowhere.
+              ...(APP_STORE_ID
+                ? { downloadUrl: APP_STORE_URL, offers: { "@type": "Offer", name: "Free download", price: "0", priceCurrency: "USD" } }
+                : {}),
               featureList: [
                 `Photo booth strips in ${BOOTH.layouts} layouts with a 3-2-1 countdown and pose prompts`,
                 `${BOOTH.films} film looks, ${BOOTH.freeFilms} free`,
@@ -151,7 +153,7 @@ export default function Home() {
             <span className="lp-step-no">Step 2</span>
             <div className="lp-step-art lp-step-pick">
               {["sun-kissed", "cozy-flash", "midnight-flash", "dreamlight", "disposable-flash", "subway-still"].map((id, i) => (
-                <img key={id} src={`/looks/${id}-after.jpg`} alt="" loading="lazy" className={i === 1 ? "is-on" : undefined} />
+                <img key={id} src={`/looks/${id}-after.webp`} alt="" loading="lazy" className={i === 1 ? "is-on" : undefined} />
               ))}
             </div>
             <h3>Pick a look</h3>
@@ -160,8 +162,8 @@ export default function Home() {
           <li className="lp-step">
             <span className="lp-step-no">Step 3</span>
             <div className="lp-step-art lp-step-done">
-              <img src="/looks/sun-kissed-before.jpg" alt="" loading="lazy" />
-              <img src="/looks/sun-kissed-after.jpg" alt="" loading="lazy" />
+              <img src="/looks/sun-kissed-before.webp" alt="" loading="lazy" />
+              <img src="/looks/sun-kissed-after.webp" alt="" loading="lazy" />
               <span className="lp-step-check" aria-hidden="true">
                 <svg viewBox="0 0 20 20" width="16" height="16"><path d="m5 10.5 3 3 7-7" /></svg>
               </span>
@@ -268,7 +270,7 @@ export default function Home() {
           <div className="lp-glow" aria-hidden="true" />
           <div className="lp-outro-fan" aria-hidden="true">
             {["dreamlight", "cozy-flash", "sun-kissed", "midnight-flash", "soft-flash"].map((id) => (
-              <img key={id} src={`/looks/${id}-after.jpg`} alt="" loading="lazy" />
+              <img key={id} src={`/looks/${id}-after.webp`} alt="" loading="lazy" />
             ))}
           </div>
           <h2 id="outro-title">Say <em>cheese</em></h2>

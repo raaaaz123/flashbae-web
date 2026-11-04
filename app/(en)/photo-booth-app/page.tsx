@@ -7,7 +7,7 @@ import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import { FILMS } from "@/lib/films";
 import { lookBySlug } from "@/lib/looks";
-import { APP_STORE_URL, BOOTH, NAME } from "@/lib/site";
+import { APP_STORE_URL, BOOTH, NAME, seoTitle } from "@/lib/site";
 
 const PATH = "/photo-booth-app/";
 const TITLE = "Photo booth app for iPhone";
@@ -15,11 +15,15 @@ const DESCRIPTION =
   `${NAME} is a photo booth app for iPhone and iPad: pose prompts, a 3-2-1 countdown and flash, ${BOOTH.layouts} strip layouts, ` +
   `${BOOTH.films} film looks, frames and stickers. Save a strip, a Story or a print sheet. Free to download.`;
 
+/** The search-result snippet: under 155 characters, so it isn't cut. */
+const META =
+  `${NAME} is a photo booth app for iPhone and iPad: pose prompts, a 3-2-1 countdown and flash, ${BOOTH.layouts} strip layouts and ${BOOTH.films} film looks.`;
+
 export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
+  title: seoTitle(TITLE),
+  description: META,
   alternates: { canonical: PATH },
-  openGraph: { title: `${TITLE} · ${NAME}`, description: DESCRIPTION, url: PATH },
+  openGraph: { title: `${TITLE} · ${NAME}`, description: META, url: PATH },
 };
 
 const LAYOUTS = [

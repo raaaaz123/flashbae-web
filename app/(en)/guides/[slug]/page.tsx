@@ -6,7 +6,7 @@ import GetApp from "@/components/GetApp";
 import JsonLd from "@/components/JsonLd";
 import { GUIDES, guideBySlug } from "@/lib/guides";
 import { formatDate } from "@/lib/looks";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!g) return {};
   const path = `/guides/${g.slug}/`;
   return {
-    title: g.title,
+    title: seoTitle(g.title),
     description: g.description,
     alternates: { canonical: path },
     openGraph: { type: "article", title: g.title, description: g.description, url: path, publishedTime: g.published, modifiedTime: g.updated },

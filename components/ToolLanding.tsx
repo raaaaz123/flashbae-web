@@ -7,7 +7,7 @@ import DateStamp from "@/components/booth/DateStamp";
 import OnlineBooth from "@/components/booth/OnlineBooth";
 import type { Landing } from "@/lib/landings";
 import { LANDINGS } from "@/lib/landings";
-import { NAME, SITE_URL } from "@/lib/site";
+import { NAME, SITE_URL, seoTitle } from "@/lib/site";
 
 const landing = (slug: string) => LANDINGS.find((l) => l.slug === slug)!;
 
@@ -15,7 +15,7 @@ export function landingMetadata(slug: string): Metadata {
   const l = landing(slug);
   const path = `/${l.slug}/`;
   return {
-    title: l.title,
+    title: seoTitle(l.title),
     description: l.description,
     alternates: { canonical: path },
     openGraph: { title: l.title, description: l.description, url: path },

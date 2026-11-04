@@ -27,6 +27,8 @@ async function save(url, file) {
   writeFileSync(path, Buffer.from(await res.arrayBuffer()));
   // Longest side 900 px: sharp on retina at the sizes the site shows, light on mobile data.
   execFileSync("sips", ["-Z", "900", "-s", "formatOptions", "78", path], { stdio: "ignore" });
+  // The pages show a 600 px WebP twin (lib/looks.ts swaps the extension); the JPEG stays for social previews.
+  execFileSync("cwebp", ["-quiet", "-q", "72", "-resize", "600", "0", path, "-o", path.replace(/\.jpg$/, ".webp")], { stdio: "ignore" });
   return `/looks/${file}`;
 }
 

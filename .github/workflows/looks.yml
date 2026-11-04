@@ -22,6 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: brew install webp
       - run: node scripts/fetch-looks.mjs
       - uses: peter-evans/create-pull-request@v7
         with:

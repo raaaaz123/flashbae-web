@@ -25,6 +25,13 @@ export default function SiteShell({ locale, children }: { locale: Locale; childr
         <Header locale={locale} />
         <main id="main">{children}</main>
         <Footer locale={locale} />
+        {/* Prefetch internal pages on hover, so the next page opens instantly (Chromium only; others ignore it). */}
+        <script
+          type="speculationrules"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({ prefetch: [{ where: { href_matches: "/*" }, eagerness: "moderate" }] }),
+          }}
+        />
         <Analytics />
         <PostHogProvider />
       </body>
