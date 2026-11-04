@@ -227,3 +227,7 @@ body:has(.sp) { background: #faf8f6; }
 .sp .pitch-kicker { color: var(--ink); }
 .sp .tool-error { background: #fff4f7; border-color: rgba(255, 79, 134, 0.35); }
 .sp .tool-error a, .sp .text-link { color: var(--ink); text-decoration: underline; text-decoration-color: rgba(255, 111, 155, 0.6); text-decoration-thickness: 2px; }
+.sp .drop { border-color: rgba(23, 18, 26, 0.14); background: var(--tint); border-radius: 22px; }
+.sp .drop-over { background: #fff4f7; border-color: var(--pink); }
+/* The how-to card sits clear of the tool above it. */
+.sp :is(.tool, .ait) + .article-body { margin-top: clamp(40px, 5vw, 64px); }
