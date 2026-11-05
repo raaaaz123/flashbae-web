@@ -9,7 +9,7 @@ export default function GlobalNotFound() {
   return (
     <SiteShell locale="en">
       <div className="page page-center">
-        <img src="/mascot.png" alt="" width={140} height={123} />
+        <img src="/mascot.png" alt="Flashbae mascot" width={140} height={123} />
         <h1>This shot didn&apos;t develop</h1>
         <p>The page you followed doesn&apos;t exist. Try the <a href="/looks/">looks</a> or go back to the <a href="/">home page</a>.</p>
       </div>

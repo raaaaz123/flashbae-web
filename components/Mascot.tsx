@@ -43,7 +43,7 @@ export default function Mascot({ size = 170, label = "Take a photo with the Flas
       </AnimatePresence>
       <motion.button type="button" className="mascot-btn" onClick={snap} animate={body} whileHover={reduce ? {} : { rotate: -4, y: -4 }}
                      whileTap={{ scale: 0.94 }} aria-label={label}>
-        <img src="/mascot.png" alt="" width={size} height={Math.round(size * 0.88)} className="mascot-img" />
+        <img src="/mascot.png" alt="Flashbae mascot" width={size} height={Math.round(size * 0.88)} className="mascot-img" />
         <AnimatePresence>
           {shots > 0 && !reduce && (
             <motion.span key={`flash-${shots}`} className="mascot-flash" initial={{ opacity: 0.95, scale: 0.4 }}

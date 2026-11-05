@@ -24,7 +24,7 @@ export default function Footer({ locale = "en" }: { locale?: Locale }) {
   return (
     <footer className="footer" style={{ "--cols": cols } as React.CSSProperties}>
       <div className="footer-brand">
-        <img src="/mascot.png" alt="" width={56} height={49} loading="lazy" />
+        <img src="/mascot.png" alt="Flashbae mascot" width={56} height={49} loading="lazy" />
         <p>
           <span className="wordmark">flashbae</span>
           <br />

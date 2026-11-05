@@ -500,8 +500,8 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                       onDoubleClick={() => { setLook(l); go("photo"); }}
                     >
                       <span className="gen-look-img">
-                        <img src={l.after} alt="" loading="lazy" />
-                        <img src={l.before} alt="" loading="lazy" className="gen-look-before" style={{ "--swap-delay": `${-(i % 6)}s` } as React.CSSProperties} />
+                        <img src={l.after} alt={`${l.title} preview`} loading="lazy" />
+                        <img src={l.before} alt={`Before the ${l.title} look`} loading="lazy" className="gen-look-before" style={{ "--swap-delay": `${-(i % 6)}s` } as React.CSSProperties} />
                         <span className="gen-look-check">{CHECK}</span>
                         {l.people > 1 && <span className="gen-look-tag">2 people</span>}
                       </span>
@@ -514,7 +514,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                 <div className="gen-bar">
                   {look ? (
                     <div className="gen-bar-pick">
-                      <img src={look.after} alt="" />
+                      <img src={look.after} alt={`${look.title} preview`} />
                       <span>
                         <small>Selected</small>
                         {look.title}

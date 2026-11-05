@@ -100,7 +100,7 @@ export default function StudioShowcase() {
         <div className="lp-studio-thumbs" role="radiogroup" aria-label={`${studio.label} looks`}>
           {looks.map((l, i) => (
             <button key={l.id} type="button" role="radio" aria-checked={l.id === look.id} className="lp-thumb" onClick={() => setK(i)}>
-              <img src={l.after} alt="" />
+              <img src={l.after} alt={`${l.title} preview`} />
               <span>{l.title}</span>
             </button>
           ))}

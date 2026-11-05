@@ -18,7 +18,7 @@ export default function HeroArc() {
           style={{ "--a": `${ANGLES[i]}deg`, "--d": `${0.08 * Math.abs(i - 4)}s`, "--i": i } as React.CSSProperties}
         >
           <div className="lp-arc-bob">
-            <img src={l!.after} alt="" width={160} height={200} fetchPriority={i === 4 ? "high" : "auto"} />
+            <img src={l!.after} alt={`${l!.title} AI photo look`} width={160} height={200} fetchPriority={i === 4 ? "high" : "auto"} />
           </div>
         </div>
       ))}

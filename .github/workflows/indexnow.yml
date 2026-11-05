@@ -1,0 +1,20 @@
+# Pings IndexNow (Bing, Yandex, Seznam, Naver; through Bing also Copilot and ChatGPT search) after every
+# production deploy. Vercel marks the GitHub Deployment "success" once the new build is serving, so this
+# always runs against the live site. Only URLs whose sitemap <lastmod> moved in the last 3 days are sent:
+# bump a page's date (sitemap.ts PAGES, aiTools.ts, landings, guides) when its content changes.
+name: IndexNow
+
+on:
+  deployment_status:
+
+jobs:
+  submit:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/indexnow.mjs --since=3

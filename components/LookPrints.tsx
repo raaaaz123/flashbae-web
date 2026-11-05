@@ -9,7 +9,7 @@ export default function LookPrints({ looks, wrap = false }: { looks: Look[]; wra
           <a href={`/looks/${l.slug}/`} className="print">
             <span className="print-photo">
               <img src={l.after} alt={`${l.title} AI look`} loading="lazy" />
-              <img src={l.before} alt="" loading="lazy" className="print-before" />
+              <img src={l.before} alt={`Before the ${l.title} look`} loading="lazy" className="print-before" />
             </span>
             <span className="print-title">{l.title}</span>
           </a>

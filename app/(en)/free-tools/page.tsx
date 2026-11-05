@@ -84,7 +84,7 @@ export default function FreeTools() {
           <li>
             <a className="card card-media" href="/ai-photo-generator/">
               <span className="card-art" aria-hidden="true">
-                <img src="/looks/sun-kissed-after.webp" alt="" loading="lazy" />
+                <img src="/looks/sun-kissed-after.webp" alt="Sun kissed AI photo look" loading="lazy" />
                 <span className="card-art-tag">✨ AI</span>
               </span>
               <h3>AI photo studio</h3>

@@ -55,7 +55,7 @@ export default function MagicPolaroids() {
         <div className="lp-pills" role="radiogroup" aria-label="Pick a look">
           {looks.map((l, k) => (
             <button key={l.id} type="button" role="radio" aria-checked={k === i} className="lp-pill" onClick={() => setI(k)}>
-              <img src={l.after} alt="" width={28} height={28} />
+              <img src={l.after} alt={`${l.title} preview`} width={28} height={28} />
               {l.title}
             </button>
           ))}

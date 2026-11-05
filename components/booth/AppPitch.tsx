@@ -38,7 +38,7 @@ export default function AppPitch({ saved, kind = "strip" }: { saved: boolean; ki
         )}
       </div>
       <div className="pitch-cta">
-        <img src="/mascot.png" alt="" width={120} height={106} loading="lazy" />
+        <img src="/mascot.png" alt="Flashbae mascot" width={120} height={106} loading="lazy" />
         <AppStoreButton href={APP_STORE_URL} />
         <p className="fine">Free on iPhone and iPad</p>
       </div>
@@ -66,7 +66,7 @@ function TemplatePitch({ saved }: { saved: boolean }) {
         </ul>
       </div>
       <div className="pitch-cta">
-        <img src="/mascot.png" alt="" width={120} height={106} loading="lazy" />
+        <img src="/mascot.png" alt="Flashbae mascot" width={120} height={106} loading="lazy" />
         <AppStoreButton href={APP_STORE_URL} />
         <p className="fine">Free on iPhone and iPad</p>
       </div>

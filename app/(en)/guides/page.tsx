@@ -61,7 +61,7 @@ export default function Guides() {
             <li key={g.slug}>
               <a className="card card-media" href={`/guides/${g.slug}/`}>
                 <span className="card-art" aria-hidden="true">
-                  {COVERS[g.slug] ? <img src={COVERS[g.slug]} alt="" loading="lazy" /> : <span className="card-art-icon">📖</span>}
+                  {COVERS[g.slug] ? <img src={COVERS[g.slug]} alt={`${g.title} cover`} loading="lazy" /> : <span className="card-art-icon">📖</span>}
                   <span className="card-art-tag">Guide</span>
                 </span>
                 <h3>{g.title}</h3>

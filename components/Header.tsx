@@ -8,7 +8,7 @@ export default function Header({ locale = "en" }: { locale?: Locale }) {
   return (
     <header className="header">
       <a href={home} className="brand" aria-label={t.homeLabel}>
-        <img src="/mascot.png" alt="" width={38} height={34} />
+        <img src="/mascot.png" alt="Flashbae mascot" width={38} height={34} />
         <span className="wordmark">flashbae</span>
       </a>
       <nav aria-label="Main" className="nav">

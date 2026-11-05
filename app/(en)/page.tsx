@@ -153,7 +153,7 @@ export default function Home() {
             <span className="lp-step-no">Step 2</span>
             <div className="lp-step-art lp-step-pick">
               {["sun-kissed", "cozy-flash", "midnight-flash", "dreamlight", "disposable-flash", "subway-still"].map((id, i) => (
-                <img key={id} src={`/looks/${id}-after.webp`} alt="" loading="lazy" className={i === 1 ? "is-on" : undefined} />
+                <img key={id} src={`/looks/${id}-after.webp`} alt={`${id.replace(/-/g, " ")} AI photo look`} loading="lazy" className={i === 1 ? "is-on" : undefined} />
               ))}
             </div>
             <h3>Pick a look</h3>
@@ -162,8 +162,8 @@ export default function Home() {
           <li className="lp-step">
             <span className="lp-step-no">Step 3</span>
             <div className="lp-step-art lp-step-done">
-              <img src="/looks/sun-kissed-before.webp" alt="" loading="lazy" />
-              <img src="/looks/sun-kissed-after.webp" alt="" loading="lazy" />
+              <img src="/looks/sun-kissed-before.webp" alt="Selfie before the sun kissed look" loading="lazy" />
+              <img src="/looks/sun-kissed-after.webp" alt="The same selfie after the sun kissed AI look" loading="lazy" />
               <span className="lp-step-check" aria-hidden="true">
                 <svg viewBox="0 0 20 20" width="16" height="16"><path d="m5 10.5 3 3 7-7" /></svg>
               </span>
@@ -204,7 +204,7 @@ export default function Home() {
               <div className="lp-phone-notch" />
               <div className="lp-phone-screen">
                 <div className="lp-strip">
-                  {STRIP.map((src) => <img key={src} src={src} alt="" loading="lazy" />)}
+                  {STRIP.map((src) => <img key={src} src={src} alt="Photo booth strip frame" loading="lazy" />)}
                   <span>flashbae · {new Date().getFullYear()}</span>
                 </div>
               </div>
@@ -270,7 +270,7 @@ export default function Home() {
           <div className="lp-glow" aria-hidden="true" />
           <div className="lp-outro-fan" aria-hidden="true">
             {["dreamlight", "cozy-flash", "sun-kissed", "midnight-flash", "soft-flash"].map((id) => (
-              <img key={id} src={`/looks/${id}-after.webp`} alt="" loading="lazy" />
+              <img key={id} src={`/looks/${id}-after.webp`} alt={`${id.replace(/-/g, " ")} AI photo look`} loading="lazy" />
             ))}
           </div>
           <h2 id="outro-title">Say <em>cheese</em></h2>

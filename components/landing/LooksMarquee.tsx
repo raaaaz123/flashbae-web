@@ -14,8 +14,8 @@ export default function LooksMarquee() {
               {row.map((l) => (
                 <li key={l.id}>
                   <a className="lp-look" href={`/looks/${l.slug}/`} tabIndex={copy ? -1 : undefined}>
-                    <img className="lp-look-after" src={l.after} alt={copy ? "" : `${l.title} AI look`} loading="lazy" />
-                    <img className="lp-look-before" src={l.before} alt="" loading="lazy" />
+                    <img className="lp-look-after" src={l.after} alt={`${l.title} AI look`} loading="lazy" />
+                    <img className="lp-look-before" src={l.before} alt={`Before the ${l.title} look`} loading="lazy" />
                     <span className="lp-look-label">{l.title}</span>
                     <span className="lp-look-peek">Before</span>
                   </a>
