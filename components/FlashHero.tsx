@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import * as THREE from "three";
-import type { Look } from "@/lib/looks";
+import { corsImage, type Look } from "@/lib/looks";
 
 /**
  * The hero: instant prints float in a loose pile. A camera flash "develops" them from the
@@ -153,8 +153,8 @@ export default function FlashHero({ looks, text = HERO_EN }: { looks: Look[]; te
           uFlare: { value: 0 },
         },
       });
-      mat.uniforms.uBefore.value = load(look.before, (t) => (mat.uniforms.uScaleBefore.value = coverScale(t)));
-      mat.uniforms.uAfter.value = load(look.after, (t) => (mat.uniforms.uScaleAfter.value = coverScale(t)));
+      mat.uniforms.uBefore.value = load(corsImage(look, "before"), (t) => (mat.uniforms.uScaleBefore.value = coverScale(t)));
+      mat.uniforms.uAfter.value = load(corsImage(look, "after"), (t) => (mat.uniforms.uScaleAfter.value = coverScale(t)));
 
       const group = new THREE.Group();
       const shadow = new THREE.Mesh(shadowGeo, shadowMat);
@@ -238,8 +238,8 @@ export default function FlashHero({ looks, text = HERO_EN }: { looks: Look[]; te
       cards.forEach((c, i) => {
         const look = lookFor(i);
         const u = c.mat.uniforms;
-        u.uBefore.value = load(look.before, (t) => (u.uScaleBefore.value = coverScale(t)));
-        u.uAfter.value = load(look.after, (t) => (u.uScaleAfter.value = coverScale(t)));
+        u.uBefore.value = load(corsImage(look, "before"), (t) => (u.uScaleBefore.value = coverScale(t)));
+        u.uAfter.value = load(corsImage(look, "after"), (t) => (u.uScaleAfter.value = coverScale(t)));
         if (reduce) { u.uDevelop.value = 1; return; }
         c.group.position.y -= 0.35; // a little jolt, as if the camera clicked
       });

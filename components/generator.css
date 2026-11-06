@@ -135,6 +135,15 @@
 .gen-look-before { opacity: 0; animation: gen-look-swap 6s ease-in-out infinite; animation-delay: var(--swap-delay, 0s); }
 @keyframes gen-look-swap { 0%, 38% { opacity: 0; } 50%, 88% { opacity: 1; } 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .gen-look-before { animation: none; } }
+/* Looks without example photos (the AI booth styles): a tile in the look's colour with its name. */
+.gen-swatch {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 14px; text-align: center;
+  background-image: radial-gradient(120% 90% at 30% 20%, rgba(255, 255, 255, 0.45), transparent 60%);
+}
+.gen-swatch span { font-weight: 600; font-size: 17px; line-height: 1.2; color: #fff; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); }
+.gen-chosen-img .gen-swatch { position: absolute; }
+.gen-bar-pick .gen-swatch { position: relative; inset: auto; display: block; width: 42px; height: 42px; border-radius: 50%; flex: none; padding: 0; }
+.gen-bar-pick .gen-swatch span { display: none; }
 .gen-look[aria-checked="true"] .gen-look-img { box-shadow: 0 0 0 3px #fff, 0 0 0 5.5px var(--pink), var(--lift-shadow); }
 .gen-look-check {
   position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;

@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
+import type { CSSProperties } from "react";
 import JsonLd from "@/components/JsonLd";
 import LookPrints from "@/components/LookPrints";
-import { LOOKS, LOOKS_UPDATED, formatDate } from "@/lib/looks";
+import { ALL_LOOKS, LOOKS, LOOKS_UPDATED, formatDate } from "@/lib/looks";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "AI photo looks and filters",
-  description: `All ${LOOKS.length} Flashbae AI looks with before and after photos: digicam flash, golden hour, Y2K camera, night-out templates and more.`,
+  description: `All ${ALL_LOOKS.length} Flashbae AI looks with before and after photos: digicam flash, golden hour, Y2K camera, night-out templates and more.`,
   alternates: { canonical: "/looks/" },
 };
 
 export default function LooksPage() {
   const effects = LOOKS.filter((l) => l.kind === "effect");
   const templates = LOOKS.filter((l) => l.kind === "template");
+  // Live looks the admin hasn't given example photos (the AI booth styles): named, and one tap from the generator.
+  const styles = ALL_LOOKS.filter((l) => !l.before || !l.after);
   return (
     <div className="page sp">
       <JsonLd
@@ -34,7 +37,7 @@ export default function LooksPage() {
             ✨ Open AI Generator Studio
           </a>
         </div>
-        <p className="meta" style={{ marginTop: 14 }}>Updated <time dateTime={LOOKS_UPDATED}>{formatDate(LOOKS_UPDATED)}</time> · {LOOKS.length} looks</p>
+        <p className="meta" style={{ marginTop: 14 }}>Updated <time dateTime={LOOKS_UPDATED}>{formatDate(LOOKS_UPDATED)}</time> · {ALL_LOOKS.length} looks</p>
       </header>
       {[
         { title: "Effects", items: effects },
@@ -45,6 +48,21 @@ export default function LooksPage() {
           <LookPrints looks={group.items} wrap />
         </section>
       ))}
+      {styles.length > 0 && (
+        <section className="section-tight" aria-labelledby="g-styles">
+          <h2 id="g-styles">More styles</h2>
+          <ul className="style-chips">
+            {styles.map((l) => (
+              <li key={l.id}>
+                <a href={`/ai-photo-generator/?look=${l.id}`} style={{ "--chip": l.accent } as CSSProperties}>
+                  <strong>{l.title}</strong>
+                  {l.tagline && <span>{l.tagline}</span>}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <section className="section-tight prose" aria-labelledby="how-looks-work">
         <h2 id="how-looks-work">How AI looks work</h2>
         <p>

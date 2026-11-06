@@ -6,7 +6,6 @@ Next.js 16 static site (Three.js hero, Framer Motion) for the Flashbae iOS app.
 npm install        # node_modules lives in node_modules.nosync (iCloud skips it); re-link if npm replaces the symlink:
                    #   rm -rf node_modules.nosync && mv node_modules node_modules.nosync && ln -s node_modules.nosync node_modules
 npm run dev        # http://localhost:3100
-npm run looks      # re-pull the looks catalog + before/after images from the live API
 npm run build      # static HTML in out/ — upload that folder to any static host
 ```
 
@@ -16,8 +15,7 @@ Build-time settings:
 
 - `NEXT_PUBLIC_POSTHOG_KEY` / `NEXT_PUBLIC_POSTHOG_HOST` — PostHog analytics and session replay (defaults to the Flashbae project on us.i.posthog.com). Replays are recorded unmasked.
 
-Content lives in `lib/site.ts` (copy, FAQ), `lib/looks.ts` (which looks are shown; `HIDDEN` keeps
-celebrity look-alikes and trademarked/poster shots off the site), `lib/films.ts` (the booth films, kept in step with
+Content lives in `lib/site.ts` (copy, FAQ), `lib/looks.ts` (the looks, read from the backend's `/looks`, the same catalog the app shows), `lib/films.ts` (the booth films, kept in step with
 `BoothFilm.all` in the app), `lib/guides.tsx` (how-to guides) and `lib/locales.ts` (the Japanese and Korean home pages,
 built from the App Store listings in `AppStore/locales`). The same sources feed the pages, the JSON-LD, the sitemap and
 `/llms.txt`, so they never disagree.
@@ -26,9 +24,7 @@ Pages: `/` and the AI looks under `/looks/`; feature pages `/photo-booth-app/`, 
 `/digicam-filter/` and `/films/`; guides under `/guides/`; and `/ja/` and `/ko/`. Each language has its own root
 layout (`app/(en)`, `app/ja`, `app/ko`) so `<html lang>` is right; `app/global-not-found.tsx` is the shared 404.
 
-Looks refresh: `.github/workflows/looks.yml` runs `npm run looks` every Monday and opens a pull request when the
-catalog changed. Each look keeps the date it first appeared (`added`), which the pages and sitemap show. Turn on
-Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests" for it to work.
+Looks: there is no list in this repo. `next.config.ts` reads `/flashbie/looks` (the API the iOS app uses) at build time, so every page, the sitemap and `/llms.txt` show exactly the looks switched on in the admin; a build fails if the API is down, so the last good deploy stays up. The generator (`useLiveLooks`) re-reads `/looks` in the browser, so a look switched on later is pickable at once and gets its own `/looks/<slug>/` page on the next deploy. Looks without example photos (the AI booth styles) show in the generator and under "More styles". The WebGL hero and the sample selfie load photos through `/flashbie/looks/<id>/image/<before|after>`, because the media host sends no CORS headers.
 
 ## Google sign-in (AI generator)
 

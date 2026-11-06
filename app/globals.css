@@ -369,6 +369,16 @@ p { margin: 0; text-wrap: pretty; }
 .gallery li:nth-child(3n + 2) .print { --tape: rgba(255, 158, 187, 0.85); }
 .gallery li:nth-child(3n) .print { --tape: rgba(169, 139, 255, 0.7); }
 .gallery-wrap .print { width: auto; }
+/* /looks/: live styles without example photos, as colour chips that open the generator. */
+.style-chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.style-chips a {
+  display: grid; gap: 4px; height: 100%; padding: 16px 18px; border-radius: 18px; color: #fff; text-decoration: none;
+  background: var(--chip, #2b2238) radial-gradient(120% 90% at 20% 10%, rgba(255, 255, 255, 0.38), transparent 60%);
+  transition: transform 0.2s ease;
+}
+.style-chips a:hover { transform: translateY(-2px); }
+.style-chips strong { font-size: 17px; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3); }
+.style-chips span { font-size: 14px; opacity: 0.92; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3); }
 .gallery li:nth-child(even) .print { --tilt: 1.8deg; }
 .gallery li:nth-child(3n) .print { --tilt: -0.6deg; }
 .print:hover, .print:focus-visible { transform: rotate(0) translateY(-8px) scale(1.03); }

@@ -6,7 +6,7 @@ import AIGenerator from "@/components/AIGenerator";
 import Crumbs, { crumbSchema } from "@/components/Crumbs";
 import JsonLd from "@/components/JsonLd";
 import LookPrints from "@/components/LookPrints";
-import { LOOKS, formatDate, lookBySlug } from "@/lib/looks";
+import { LOOKS, absImage, formatDate, lookBySlug } from "@/lib/looks";
 import { APP_STORE_URL, BOOTH, NAME, SITE_URL } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -62,7 +62,7 @@ export default async function LookPage({ params }: Props) {
               "@type": "HowTo",
               name: `How to get the ${l.title} look on your photo`,
               description: summary(l),
-              image: `${SITE_URL}${l.afterJpg}`,
+              image: absImage(l.afterJpg, SITE_URL),
               step: [
                 { "@type": "HowToStep", position: 1, text: `Open ${NAME} on your iPhone and pick ${l.title} in Looks.` },
                 { "@type": "HowToStep", position: 2, text: l.kind === "template" ? "Add a clear selfie of each person in the scene." : "Add a selfie from your camera or gallery." },
@@ -74,7 +74,7 @@ export default async function LookPage({ params }: Props) {
               "@id": `${SITE_URL}/looks/${l.slug}/`,
               name: `${l.title} AI ${template ? "photo template" : "photo filter"}`,
               datePublished: l.added,
-              primaryImageOfPage: `${SITE_URL}${l.afterJpg}`,
+              primaryImageOfPage: absImage(l.afterJpg, SITE_URL),
               isPartOf: { "@id": `${SITE_URL}/#site` },
             },
             crumbSchema(trail),

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { LOOKS, type Look, lookById, lookBySlug } from "@/lib/looks";
+import { corsImage, type Look, lookBySlug } from "@/lib/looks";
+import useLiveLooks from "@/lib/useLiveLooks";
 import { APP_STORE_URL } from "@/lib/site";
 import GoogleSignIn from "@/components/GoogleSignIn";
 import {
@@ -25,19 +26,15 @@ type Props = {
 type Step = "style" | "photo" | "generating" | "result";
 type Kind = Look["kind"];
 
-/** The categories inside each kind. Looks a category doesn't name still show under "All". */
-const CATEGORIES: Record<Kind, { id: string; label: string; ids: string[] }[]> = {
-  effect: [
-    { id: "golden", label: "Golden hour", ids: ["dreamlight", "sun-kissed", "adds-warm-cinematic-tones-and-soft-motio"] },
-    { id: "flash", label: "Flash & film", ids: ["disposable-flash", "adds-warm-cinematic-tones-and-soft-motio"] },
-    { id: "fix", label: "Fix & retouch", ids: ["retake", "clear-scene"] },
-  ],
-  template: [
-    { id: "night", label: "Night out", ids: ["midnight-flash", "subway-motion", "subway-still"] },
-    { id: "cozy", label: "Cozy flash", ids: ["soft-flash", "cozy-flash"] },
-    { id: "art", label: "Booth & art", ids: ["face-roll", "neon-collage"] },
-  ],
-};
+/** A look's example photo, or, for looks without one (the AI booth styles), a tile in the look's colour. */
+function Swatch({ look, className, alt = "" }: { look: Look; className?: string; alt?: string }) {
+  if (look.after) return <img src={look.after} alt={alt} loading="lazy" className={className} />;
+  return (
+    <span className={`gen-swatch${className ? ` ${className}` : ""}`} style={{ background: look.accent }} role={alt ? "img" : undefined} aria-label={alt || undefined}>
+      <span>{look.title}</span>
+    </span>
+  );
+}
 
 const KINDS: { id: Kind; label: string; blurb: string }[] = [
   { id: "effect", label: "Effects", blurb: "Keep your photo and its background, change the light: flash, golden hour, film and quick fixes." },
@@ -69,6 +66,9 @@ const GOOGLE = (
 export default function AIGenerator({ initialLookSlug, className = "" }: Props) {
   const initial = initialLookSlug ? lookBySlug(initialLookSlug) ?? null : null;
   const [look, setLook] = useState<Look | null>(initial);
+  // Every look switched on in the admin (the same /looks the app reads), refreshed in the browser.
+  const { looks: allLooks, categories } = useLiveLooks();
+  const paramDone = useRef(false);
   const [kind, setKind] = useState<Kind>(initial?.kind ?? "effect");
   const [category, setCategory] = useState("all");
   const [step, setStep] = useState<Step>(initial ? "photo" : "style");
@@ -134,16 +134,18 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
   }, []);
 
   // ?look= on the generator page picks the look and skips straight to the photo.
+  // Runs again when the live catalog lands, so a look added after the deploy can be linked too.
   useEffect(() => {
-    if (initialLookSlug) return;
+    if (initialLookSlug || paramDone.current) return;
     const param = new URLSearchParams(window.location.search).get("look");
-    const match = param ? lookBySlug(param) || lookById(param) : null;
+    const match = param ? allLooks.find((l) => l.slug === param || l.id === param) : null;
     if (match) {
+      paramDone.current = true;
       setLook(match);
       setKind(match.kind);
       setStep("photo");
     }
-  }, [initialLookSlug]);
+  }, [initialLookSlug, allLooks]);
 
   useEffect(() => {
     if (webcamOpen) {
@@ -229,8 +231,10 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
   const useSamplePhoto = async () => {
     if (!look) return;
     try {
-      // The full-size JPEG, not the 600 px WebP the page shows: the model gets the sharpest face.
-      const blob = await (await fetch(look.before.replace(/\.webp$/, ".jpg"))).blob();
+      // Through the API: the image host sends no CORS headers, so the browser can't read the photo directly.
+      const res = await fetch(corsImage(look, "before", 1600));
+      if (!res.ok) throw new Error(String(res.status));
+      const blob = await res.blob();
       handleFile1(new File([blob], `${look.id}-sample.jpg`, { type: "image/jpeg" }));
     } catch {
       setError("Could not load the sample photo.");
@@ -341,10 +345,13 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
   };
 
   // ---------- step 1: the looks on offer ----------
-  const ofKind = LOOKS.filter((l) => l.kind === kind);
-  const cats = CATEGORIES[kind].filter((c) => c.ids.some((id) => ofKind.some((l) => l.id === id)));
-  const cat = cats.find((c) => c.id === category);
-  const shown = cat ? ofKind.filter((l) => cat.ids.includes(l.id)) : ofKind;
+  // Categories are the admin's, in its order; a kind shows only the ones that hold its looks.
+  const ofKind = allLooks.filter((l) => l.kind === kind);
+  const cats = categories
+    .filter((c) => ofKind.some((l) => l.categoryId === c.id))
+    .map((c) => ({ id: c.id, label: c.title }));
+  const cat = cats.length > 1 ? cats.find((c) => c.id === category) : undefined;
+  const shown = cat ? ofKind.filter((l) => l.categoryId === cat.id) : ofKind;
 
   const stepIndex = STEPS.findIndex((s) => s.id === step);
   /** Which earlier steps can be revisited from the stepper. */
@@ -398,7 +405,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
               <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 8a2 2 0 0 1 2-2h2.5l1.5-2h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M12 16.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" /></svg>
               Use camera
             </button>
-            {n === 1 && <button type="button" className="gen-chip" onClick={useSamplePhoto}>Try a sample photo</button>}
+            {n === 1 && look?.before && <button type="button" className="gen-chip" onClick={useSamplePhoto}>Try a sample photo</button>}
           </div>
         )}
       </div>
@@ -472,7 +479,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                         {kind === k.id && <motion.span layoutId="gen-seg" className="gen-seg-bg" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
                         <span className="gen-seg-text">
                           {k.label}
-                          <small>{LOOKS.filter((l) => l.kind === k.id).length}</small>
+                          <small>{allLooks.filter((l) => l.kind === k.id).length}</small>
                         </span>
                       </button>
                     ))}
@@ -481,7 +488,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                 <p className="gen-blurb">{KINDS.find((k) => k.id === kind)!.blurb}</p>
 
                 <div className="gen-cats" role="radiogroup" aria-label="Category">
-                  {[{ id: "all", label: "All" }, ...cats].map((c) => (
+                  {cats.length > 1 && [{ id: "all", label: "All" }, ...cats].map((c) => (
                     <button key={c.id} type="button" role="radio" aria-checked={category === c.id} className="gen-cat" onClick={() => setCategory(c.id)}>
                       {c.label}
                     </button>
@@ -500,8 +507,8 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                       onDoubleClick={() => { setLook(l); go("photo"); }}
                     >
                       <span className="gen-look-img">
-                        <img src={l.after} alt={`${l.title} preview`} loading="lazy" />
-                        <img src={l.before} alt={`Before the ${l.title} look`} loading="lazy" className="gen-look-before" style={{ "--swap-delay": `${-(i % 6)}s` } as React.CSSProperties} />
+                        <Swatch look={l} alt={`${l.title} preview`} />
+                        {l.before && <img src={l.before} alt={`Before the ${l.title} look`} loading="lazy" className="gen-look-before" style={{ "--swap-delay": `${-(i % 6)}s` } as React.CSSProperties} />}
                         <span className="gen-look-check">{CHECK}</span>
                         {l.people > 1 && <span className="gen-look-tag">2 people</span>}
                       </span>
@@ -514,7 +521,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                 <div className="gen-bar">
                   {look ? (
                     <div className="gen-bar-pick">
-                      <img src={look.after} alt={`${look.title} preview`} />
+                      <Swatch look={look} alt={`${look.title} preview`} />
                       <span>
                         <small>Selected</small>
                         {look.title}
@@ -555,7 +562,7 @@ export default function AIGenerator({ initialLookSlug, className = "" }: Props) 
                 <div className="gen-photo">
                   <aside className="gen-chosen">
                     <div className="gen-chosen-img">
-                      <img src={look.after} alt={`${look.title} example`} />
+                      <Swatch look={look} alt={`${look.title} example`} />
                       <span className="gen-kind">{look.kind === "template" ? "Template" : "Effect"}</span>
                     </div>
                     <div className="gen-chosen-text">
